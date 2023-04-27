@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private LayerMask targetMask;
+    [SerializeField] protected LayerMask targetMask;
 
     public Animator anim;
     public Transform playerBody;
     public float radius;
     
-    private Vector3 targetEnemy;
+    protected Transform targetEnemy;
     private Transform m_Transform;
     private Collider[] rangeCheck;
 
 
     private bool isMoving = false;
     private bool isAttack = false;
+    private bool haveTarget = false;
 
     public bool IsMoving { get { return isMoving; } set { isMoving = value; } }
     public bool IsAttack { get { return isAttack; } set { isAttack = value; } }
+    public bool HaveTarget { get { return haveTarget; } set { haveTarget = value; } }
     public Transform Transform
     {
         get
@@ -32,8 +34,6 @@ public class Character : MonoBehaviour
 
     public StateMachine<Character> currentState;
     public float ResetAttackTime;
-
-    protected bool haveTarget = false;
     protected string currentAnimName = "";
 
     private void Awake()
@@ -46,7 +46,6 @@ public class Character : MonoBehaviour
     {
         StartCoroutine(FOVRoutine(0.2f));
         this.OnInit();
-        this.currentState.ChangeState(new IdleState());
     }
 
     // Update is called once per frame
@@ -77,7 +76,6 @@ public class Character : MonoBehaviour
         if (currentAnimName == animName)
             return;
         //Debug.Log(currentAnimName + " -> " + animName);
-        anim.ResetTrigger(currentAnimName);
         anim.ResetTrigger(animName);
         currentAnimName = animName;
         anim.SetTrigger(currentAnimName);
@@ -111,10 +109,10 @@ public class Character : MonoBehaviour
         rangeCheck = Physics.OverlapSphere(playerBody.position, radius, targetMask);
 
         haveTarget = false;
-        if (rangeCheck.Length == 0)
+        if (rangeCheck.Length <= 1) /// 1 because playerbody = 1
             return;
-
         haveTarget = true;
+
         float distance = 1000f;
         float temporaryDistance;
         
@@ -123,10 +121,12 @@ public class Character : MonoBehaviour
             Debug.DrawLine(playerBody.position, rangeCheck[i].transform.position, Color.red);
 
             temporaryDistance = Vector3.Distance(playerBody.position, rangeCheck[i].transform.position);
+            if (temporaryDistance < 0.1f) 
+                continue;
             if (distance > temporaryDistance)
             {
                 distance = temporaryDistance;
-                targetEnemy = rangeCheck[i].transform.position;
+                targetEnemy = rangeCheck[i].transform;
             }
         }
     }
@@ -135,15 +135,22 @@ public class Character : MonoBehaviour
 
 
     ///=======================================================================\
-    /// Attack
+    /// Attack and LookAtTarget
     ///=======================================================================\
     
-    internal void Attack()
+    virtual internal void Attack()
     {
-        if (IsAttack)
+        if (IsAttack || haveTarget == false)
             return;
+        
+        LookAtTarget();
+        Debug.DrawLine(playerBody.position, targetEnemy.position,Color.blue, 2f);
+        
+    }
 
-        currentState.ChangeState(new AttackState());
+    internal void LookAtTarget()
+    {
+        playerBody.LookAt(targetEnemy);
     }
 
     ///=======================================================================\

@@ -14,6 +14,11 @@ public class Player : Character
     private float horizontalInput;
     private float verticalInput;
 
+    protected override void Start()
+    {
+        base.Start();
+        this.currentState.ChangeState(new PlayerIdleState());
+    }
 
     protected override void UpdateCharacterState()
     {
@@ -29,11 +34,11 @@ public class Player : Character
     {
         if (Input.GetMouseButton(0))
         {
-            currentState.ChangeState(new RunState());
+            currentState.ChangeState(new PlayerRunState());
         }
         if (Input.GetMouseButtonUp(0))
         {
-            currentState.ChangeState(new IdleState());
+            currentState.ChangeState(new PlayerIdleState());
         }
     }
 
@@ -47,25 +52,20 @@ public class Player : Character
         rigidbody.velocity = moveSpeed * Time.deltaTime * moveDirection;
 
         ChangeDirection();
-
-        //if (Mathf.Abs(rigidbody.velocity.x) > 0.1f || Mathf.Abs(rigidbody.velocity.z) > 0.1f)
-        //{
-            
-        //}
-        //else
-        //{
-            
-        //}
     }
 
     private void ChangeDirection()
     {
-        Vector3 direct2 = new Vector3(-horizontalInput, 0, -verticalInput);
+        Vector3 direct2 = new Vector3(horizontalInput, 0, verticalInput);
 
         if (Vector3.Distance(direct2, Vector3.zero) > 0.1f)
             playerBody.rotation = Quaternion.LookRotation(direct2);
     }
     ///=======================================================================\
-    
 
+    internal override void Attack()
+    {
+        base.Attack();
+        currentState.ChangeState(new PlayerAttackState());
+    }
 }

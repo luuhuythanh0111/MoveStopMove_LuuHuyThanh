@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class AttackState : IState<Character>
+public class PlayerAttackState : IState<Character>
 {
     public float CountDownResetAttackTime;
     public void OnEnter(Character t)
@@ -20,7 +20,7 @@ public class AttackState : IState<Character>
         if (CountDownResetAttackTime <= 0)
         {
             t.IsAttack = false;
-            t.currentState.ChangeState(new IdleState());
+            t.currentState.ChangeState(new PlayerIdleState());
         }
 
         if(t.CheckAnimationFinish())
@@ -31,7 +31,7 @@ public class AttackState : IState<Character>
 
     public void OnExit(Character t)
     {
-        t.IsAttack = false;
+        
     }
 
 }
