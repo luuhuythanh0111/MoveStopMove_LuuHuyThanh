@@ -13,24 +13,31 @@ public class Player : Character
 
     private float horizontalInput;
     private float verticalInput;
-    
 
-    // Start is called before the first frame update
-    internal override void Start()
-    {
-        base.Start();
-    }
 
-    internal override void Update()
+    protected override void UpdateCharacterState()
     {
-        base.Update();
-        Move();
+        base.UpdateCharacterState();
+        GetMouseInput();
     }
 
     ///=======================================================================\
     /// Input and Moving
-    ///=======================================================================\
-    private void Move()
+    ///=======================================================================\ <summary>
+
+    private void GetMouseInput()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            currentState.ChangeState(new RunState());
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            currentState.ChangeState(new IdleState());
+        }
+    }
+
+    internal void Move()
     {
         verticalInput = floatingJoystick.Vertical;
         horizontalInput = floatingJoystick.Horizontal;
@@ -39,18 +46,16 @@ public class Player : Character
 
         rigidbody.velocity = moveSpeed * Time.deltaTime * moveDirection;
 
-        if(Mathf.Abs(rigidbody.velocity.x) > 0.1f || Mathf.Abs(rigidbody.velocity.z) > 0.1f)
-        {
-            Debug.Log(2);
-            ChangeAnim("Run");
-        }
-        else
-        {
-            Debug.Log(1);
-            ChangeAnim("Idle");
-        }
-
         ChangeDirection();
+
+        //if (Mathf.Abs(rigidbody.velocity.x) > 0.1f || Mathf.Abs(rigidbody.velocity.z) > 0.1f)
+        //{
+            
+        //}
+        //else
+        //{
+            
+        //}
     }
 
     private void ChangeDirection()

@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
     [SerializeField] private LayerMask targetMask;
 
+    public Animator anim;
     public Transform playerBody;
-    
     public float radius;
-
-    private bool haveTarget = false;
-    private bool haveAttackTarget = false;
+    
     private Vector3 targetEnemy;
     private Transform m_Transform;
+    private Collider[] rangeCheck;
 
-    protected string currentAnimName;
 
+    private bool isMoving = false;
+    private bool isAttack = false;
 
+    public bool IsMoving { get { return isMoving; } set { isMoving = value; } }
+    public bool IsAttack { get { return isAttack; } set { isAttack = value; } }
     public Transform Transform
     {
         get
@@ -29,45 +30,64 @@ public class Character : MonoBehaviour
         }
     }
 
+    public StateMachine<Character> currentState;
+    public float ResetAttackTime;
 
-    private Collider[] rangeCheck;
+    protected bool haveTarget = false;
+    protected string currentAnimName = "";
 
-    // Start is called before the first frame update
-    virtual internal void Start()
+    private void Awake()
+    {
+        currentState = new StateMachine<Character>();
+        currentState.SetOwner(this);
+    }
+    
+    virtual protected void Start()
     {
         StartCoroutine(FOVRoutine(0.2f));
+        this.OnInit();
+        this.currentState.ChangeState(new IdleState());
     }
 
     // Update is called once per frame
-    virtual internal void Update()
+    virtual protected void Update()
     {
-        if(haveTarget)
-        {
-            StartCoroutine(AttackRoutine());
-        }
+        this.UpdateCharacterState();
     }
 
-    ///=======================================================================\
-    /// Animation
-    ///=======================================================================\
-    protected void ChangeAnim(string animName)
+
+    virtual protected void OnInit()
     {
-        if (currentAnimName != animName)
-        {
-            //Debug.Log(currentAnimName + " -> " + animName);
-            anim.ResetTrigger(animName);
-            currentAnimName = animName;
-            anim.SetTrigger(currentAnimName);
-        }
+        isMoving = false;
+        isAttack = false;
+        currentAnimName = "Idle";
     }
 
-    private IEnumerator AttackRoutine(float time = 10f)
+    virtual protected void UpdateCharacterState()
     {
-        Cache.GetWFS(time);
-        ChangeAnim("Attack");
-        yield return time;
-        ChangeAnim("Idle");
+        currentState.UpdateState(this);
     }
+
+
+    ///=======================================================================\
+    /// Animation and Check Animation ended
+    ///=======================================================================\
+    public void ChangeAnim(string animName)
+    {
+        if (currentAnimName == animName)
+            return;
+        //Debug.Log(currentAnimName + " -> " + animName);
+        anim.ResetTrigger(currentAnimName);
+        anim.ResetTrigger(animName);
+        currentAnimName = animName;
+        anim.SetTrigger(currentAnimName);
+    }
+
+    public bool CheckAnimationFinish()
+    {
+        return (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !anim.IsInTransition(0));
+    }
+
     ///=======================================================================\
 
 
@@ -111,7 +131,20 @@ public class Character : MonoBehaviour
         }
     }
 
-        
     ///=======================================================================\
 
+
+    ///=======================================================================\
+    /// Attack
+    ///=======================================================================\
+    
+    internal void Attack()
+    {
+        if (IsAttack)
+            return;
+
+        currentState.ChangeState(new AttackState());
+    }
+
+    ///=======================================================================\
 }
