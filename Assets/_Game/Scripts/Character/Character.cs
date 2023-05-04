@@ -1,15 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
+    [SerializeField] protected Transform throwPosition;
     [SerializeField] protected LayerMask targetMask;
+    [SerializeField] protected Weapon weaponPrefab;
 
     public Animator anim;
     public Transform playerBody;
     public float radius;
-    
+
     protected Transform targetEnemy;
     private Transform m_Transform;
     private Collider[] rangeCheck;
@@ -41,7 +42,7 @@ public class Character : MonoBehaviour
         currentState = new StateMachine<Character>();
         currentState.SetOwner(this);
     }
-    
+
     virtual protected void Start()
     {
         StartCoroutine(FOVRoutine(0.2f));
@@ -52,14 +53,6 @@ public class Character : MonoBehaviour
     virtual protected void Update()
     {
         this.UpdateCharacterState();
-    }
-
-
-    virtual protected void OnInit()
-    {
-        isMoving = false;
-        isAttack = false;
-        currentAnimName = "Idle";
     }
 
     virtual protected void UpdateCharacterState()
@@ -115,13 +108,13 @@ public class Character : MonoBehaviour
 
         float distance = 1000f;
         float temporaryDistance;
-        
+
         for (int i = 0; i < rangeCheck.Length; i++)
         {
             Debug.DrawLine(playerBody.position, rangeCheck[i].transform.position, Color.red);
 
             temporaryDistance = Vector3.Distance(playerBody.position, rangeCheck[i].transform.position);
-            if (temporaryDistance < 0.1f) 
+            if (temporaryDistance < 0.1f)
                 continue;
             if (distance > temporaryDistance)
             {
@@ -137,20 +130,62 @@ public class Character : MonoBehaviour
     ///=======================================================================\
     /// Attack and LookAtTarget
     ///=======================================================================\
-    
+
     virtual internal void Attack()
     {
         if (IsAttack || haveTarget == false)
             return;
-        
+
         LookAtTarget();
-        Debug.DrawLine(playerBody.position, targetEnemy.position,Color.blue, 2f);
-        
+        Debug.DrawLine(playerBody.position, targetEnemy.position, Color.blue, 2f);
+
     }
 
     internal void LookAtTarget()
     {
         playerBody.LookAt(targetEnemy);
+
+        /// throw weapon
+        Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
+        weapon.transform.position = Transform.position;
+        weapon.LifeTime = radius / weapon.Speed;
+        weapon.OnInit(throwPosition.position, targetEnemy.position);
+
+        ///
+    }
+
+    public override void OnInit()
+    {
+        isMoving = false;
+        isAttack = false;
+        currentAnimName = "Idle";
+
+
+        /// Spawn Position , Need to update new Way to spawn
+        /////
+        Vector3 spawnPosition = new Vector3(Random.Range(-20f, 20f),
+                        0, Random.Range(-20f, 20f)
+            );
+        transform.position = spawnPosition;
+        /////
+
+        /// Spawn Weapon, testing  pool
+        /////
+        //Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
+        //weapon.OnInit();
+        /////
+
+
+    }
+
+    public override void OnDespawn()
+    {
+        SimplePool.Despawn(this);
+    }
+
+    public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
+    {
+        throw new System.NotImplementedException();
     }
 
     ///=======================================================================\

@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.TextCore.Text;
-using static UnityEngine.UI.GridLayoutGroup;
-
 public class StateMachine<T> where T : Character
 {
     private IState<T> currentState;
@@ -11,7 +5,7 @@ public class StateMachine<T> where T : Character
 
     public void ChangeState<TState>(TState state) where TState : IState<T>
     {
-        Debug.Log(currentState + " -> "   + state);
+        //Debug.Log(currentState + " -> "   + state);
         if (currentState != null)
         {
             currentState.OnExit(typeClass);
