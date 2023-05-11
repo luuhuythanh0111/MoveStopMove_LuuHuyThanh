@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : Character
@@ -8,16 +9,27 @@ public class Player : Character
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private Transform orientation;
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private Transform radiusRing;
+    [SerializeField] private LevelManager levelManager;
+
+    internal int currentPLayerWeaponIndex;
+    internal GameObject weapon;
 
     private Vector3 moveDirection;
-
     private float horizontalInput;
     private float verticalInput;
+
+    private int coin;
 
     protected override void Start()
     {
         base.Start();
         this.currentState.ChangeState(new PlayerIdleState());
+        radiusRing.localScale = new Vector3(radius-0.5f, radius-0.5f, 1);
+
+        coin = levelManager.coin;
+
+        levelManager.SetCoinText();
     }
 
     protected override void UpdateCharacterState()
@@ -32,6 +44,8 @@ public class Player : Character
 
     private void GetMouseInput()
     {
+        if (this.isDead)
+            return;
         if (Input.GetMouseButton(0))
         {
             currentState.ChangeState(new PlayerRunState());
@@ -63,9 +77,32 @@ public class Player : Character
     }
     ///=======================================================================\
 
+
+    ///=======================================================================\
+    /// Attack and TargetRing
+    ///=======================================================================\
     internal override void Attack()
     {
         base.Attack();
         currentState.ChangeState(new PlayerAttackState());
     }
+
+    protected override void FieldOfViewCheck()
+    {
+        if (GameManager.Instance.IsState(GameState.Gameplay) == false)
+            return;
+
+        if (targetEnemy != null)
+        {
+            targetEnemy.GetComponent<PlayerBody>().targetRing.SetActive(false);
+        }
+
+        base.FieldOfViewCheck();
+
+        if (targetEnemy != null)
+            targetEnemy.GetComponent<PlayerBody>().targetRing.SetActive(true);
+    }
+
+    ///=======================================================================\
+
 }

@@ -5,17 +5,18 @@ public class Character : GameUnit
 {
     [SerializeField] protected Transform throwPosition;
     [SerializeField] protected LayerMask targetMask;
-    [SerializeField] protected Weapon weaponPrefab;
+    [SerializeField] internal Weapon weaponPrefab;
 
     public Animator anim;
     public Transform playerBody;
     public float radius;
 
+    internal bool isDead = false;
+
     protected Transform targetEnemy;
+
     private Transform m_Transform;
     private Collider[] rangeCheck;
-
-
     private bool isMoving = false;
     private bool isAttack = false;
     private bool haveTarget = false;
@@ -90,6 +91,7 @@ public class Character : GameUnit
     {
         Cache.GetWFS(time);
 
+        
         while (true)
         {
             yield return time;
@@ -97,18 +99,23 @@ public class Character : GameUnit
         }
     }
 
-    private void FieldOfViewCheck()
+    virtual protected void FieldOfViewCheck()
     {
+        if (GameManager.Instance.IsState(GameState.Gameplay) == false)
+            return;
         rangeCheck = Physics.OverlapSphere(playerBody.position, radius, targetMask);
-
+        
         haveTarget = false;
         if (rangeCheck.Length <= 1) /// 1 because playerbody = 1
+        {
+            targetEnemy = null;
             return;
+        }
         haveTarget = true;
 
         float distance = 1000f;
         float temporaryDistance;
-
+        
         for (int i = 0; i < rangeCheck.Length; i++)
         {
             Debug.DrawLine(playerBody.position, rangeCheck[i].transform.position, Color.red);
@@ -159,21 +166,17 @@ public class Character : GameUnit
         isMoving = false;
         isAttack = false;
         currentAnimName = "Idle";
-
+        ChangeAnim("Idle");
+        targetEnemy = null;
 
         /// Spawn Position , Need to update new Way to spawn
         /////
-        Vector3 spawnPosition = new Vector3(Random.Range(-20f, 20f),
-                        0, Random.Range(-20f, 20f)
+        if (this is Player)
+            return;
+        Vector3 spawnPosition = new Vector3(Random.Range(-25f, 25f),
+                        0, Random.Range(-25f, 25f)
             );
         transform.position = spawnPosition;
-        /////
-
-        /// Spawn Weapon, testing  pool
-        /////
-        //Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
-        //weapon.OnInit();
-        /////
 
 
     }
@@ -189,4 +192,10 @@ public class Character : GameUnit
     }
 
     ///=======================================================================\
+
+    ///=======================================================================\
+    /// OnTrigger
+    ///=======================================================================\
+
+
 }

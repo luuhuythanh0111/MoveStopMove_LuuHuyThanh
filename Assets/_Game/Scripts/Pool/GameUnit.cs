@@ -1,8 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameUnit : MonoBehaviour
 {
     private Transform tf;
+    internal PoolType poolType;
+
     public Transform TF
     {
         get

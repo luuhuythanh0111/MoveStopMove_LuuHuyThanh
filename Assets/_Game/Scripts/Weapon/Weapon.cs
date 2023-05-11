@@ -13,7 +13,7 @@ public class Weapon : GameUnit
 
     private Vector3 moveDirection;
 
-    private void Update()
+    virtual protected void Update()
     {
         rigidbody.velocity = speed * moveDirection.normalized;
 
@@ -31,7 +31,6 @@ public class Weapon : GameUnit
         timer = 0f;
         transform.position = spawnPosition;
         moveDirection = targetEnemy - spawnPosition;
-        flyingThing.localPosition = Vector3.zero;
     }
 
     public override void OnDespawn()

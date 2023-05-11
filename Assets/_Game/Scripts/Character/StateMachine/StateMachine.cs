@@ -5,6 +5,10 @@ public class StateMachine<T> where T : Character
 
     public void ChangeState<TState>(TState state) where TState : IState<T>
     {
+        if(GameManager.Instance.IsState(GameState.MainMenu))
+        {
+            return;
+        }
         //Debug.Log(currentState + " -> "   + state);
         if (currentState != null)
         {
