@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceed30ba07a299f4e904077824765d89, type: 3}
+  m_Name: SkinObject
+  m_EditorClassIdentifier: 
+  weaponSkin:
+  - {fileID: 4109215204194217040, guid: 180e7042bcbf1f748b29d2fb29c71cfe, type: 3}
+  - {fileID: 3088570118957807009, guid: 53e893e62db15f645a52c3d322ab8cf0, type: 3}
+  - {fileID: 3809388077176936861, guid: 3c898521d085af14292f635d3ae494c2, type: 3}
+  - {fileID: 9107351903900986987, guid: dcc6536ba7754f34b8872476fb2025ff, type: 3}
+  - {fileID: 8090305518209705460, guid: ba39bf361b44b6e43ad099c636dcd85a, type: 3}
+  - {fileID: 8437265920667882169, guid: bbd2fca3a48610e4298244f0b82aa676, type: 3}
+  - {fileID: 4802040378060515323, guid: d4e3394d940438a469de0b0c14dc1b5c, type: 3}
+  - {fileID: 3724648212458210958, guid: d18ecc8cf4c272242800152f08e7f06f, type: 3}
+  - {fileID: 965335576797639373, guid: 77ccf0536f61a8b4a804ee13c652b7f8, type: 3}
+  - {fileID: 7932710912390325382, guid: 5a76ef67296dfbf41b4bd11fc32abc3a, type: 3}
+  - {fileID: 2533036572390186251, guid: 1d5f66de60522cf49a6f3dc929b0a108, type: 3}
+  - {fileID: 9192264892885895631, guid: ee049284a00265b47a51efe3b73ca7c0, type: 3}
+  headSkin:
+  - {fileID: 2758669871121450763, guid: ce3f4ed5188e7734094438025669e72f, type: 3}
+  - {fileID: 6673960297928855410, guid: 7d9bcbea61dfd334c8dd16712b5328f4, type: 3}
+  - {fileID: -2679865839904288283, guid: ed9e1487d7be0e2409cd0527603926d9, type: 3}
+  - {fileID: -86943122406770062, guid: 63785d449f9364b4091df37a06712625, type: 3}
+  - {fileID: -5583083255134540542, guid: 5639837b1fdfcce42a2280a57493013a, type: 3}
+  - {fileID: -2916876585388463871, guid: 94932eab4ccd5eb4e9d0fc6bfdd55fd7, type: 3}
+  - {fileID: -2008000184123800673, guid: 1e3a255dda04ae04e8f51bb8c1240dfb, type: 3}
+  - {fileID: 7630938714126285833, guid: e2c22aef91c05814e85d8e04798882e5, type: 3}
+  - {fileID: -7747700879965050250, guid: f9a651ff4af987f4f89c2691f66f3231, type: 3}
+  - {fileID: 6052448206482797109, guid: 31e48f09123a4b84aad4d763904c7224, type: 3}
+  pantSkin:
+  - {fileID: 2623576768645921198, guid: 7865bb3b30dfe8b4986244b27b36abb2, type: 3}
+  - {fileID: -9002939795370323542, guid: 2c56042064ac3dc489d4a89450c2c411, type: 3}
+  - {fileID: 7732595557093001978, guid: 0882dc026c49eb44bafafea69e0378e6, type: 3}
+  - {fileID: -6896926716328034751, guid: 969bd676b6a925e42a1c8503dd3c087c, type: 3}
+  - {fileID: 7172136998976376010, guid: 98ef0e6e1f1f96441be060141d616828, type: 3}
+  - {fileID: -1743114688812434203, guid: f401c25bb6df49f4faf307ebb78760a4, type: 3}
+  - {fileID: -8198693256689322231, guid: f58f5dccc372d2448967d73527430fe4, type: 3}
+  - {fileID: -8520270349710940180, guid: be9571cd33956d942af496320c71e096, type: 3}
+  - {fileID: -5647980527162020257, guid: ad8c89f8aa7505c43a45be34048399e4, type: 3}
+  pantSkinMaterial:
+  - {fileID: 2100000, guid: 56507925b90e6964bab4a55527cb611d, type: 2}
+  - {fileID: 2100000, guid: e7d8d0a10e588f2409bfbb0f549617b1, type: 2}
+  - {fileID: 2100000, guid: 6161653da91d90547b0e4f1a419fa852, type: 2}
+  - {fileID: 2100000, guid: 1e786ed702ab058408f7ae85d8963e08, type: 2}
+  - {fileID: 2100000, guid: 37d95ae247dc5df4f89008d3e1925b8e, type: 2}
+  - {fileID: 2100000, guid: 8b1736e9fe183b042b56931fd45ca6b5, type: 2}
+  - {fileID: 2100000, guid: 6e909eb25e129c947b68e9bd72e4023d, type: 2}
+  - {fileID: 2100000, guid: dcc2670967dc37f4786fbf1e6c4bca2b, type: 2}
+  - {fileID: 2100000, guid: 209b8e5c5ab2acd4fa06e5db76d94d8d, type: 2}
+  - {fileID: 2100000, guid: 1964fed3c37ceb144bc01b4971cf0b49, type: 2}
+  armoSkin:
+  - {fileID: -4799010342011239576, guid: 91a0dffb7859a644a97eba2e184d57c3, type: 3}
+  - {fileID: 2412831111282087712, guid: 0847e4f5329c86e46b1018cb1b83e83b, type: 3}
+  setSkin: []

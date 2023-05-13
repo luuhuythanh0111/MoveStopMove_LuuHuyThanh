@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour
+public class Menu : Singleton<Menu>
 {
     [SerializeField] private TextMeshProUGUI weaponName;
     [SerializeField] private TextMeshProUGUI weaponValueCanBuy;
@@ -24,9 +24,9 @@ public class Menu : MonoBehaviour
 
     public GameObject[] weapons;
 
+    internal int currentWeaponIndex;
 
     private bool inWeaponShop = false;
-    private int currentWeaponIndex;
 
     private void Start()
     {
@@ -48,12 +48,18 @@ public class Menu : MonoBehaviour
 
     public void SetActiveCurrentIndex()
     {
-        if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && (currentWeaponIndex == 0 || levelManager.openedWeaponIndex[currentWeaponIndex-1] == 1))
+        if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex-1] == 1)
         {
             canBuyButton.SetActive(true);
             watchADButton.SetActive(true);
             weaponValueCanBuy.SetText(weaponScriptableObject.GetWeaponValue(currentWeaponIndex).ToString());
 
+            return;
+        }
+
+        if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex - 1] == 0)
+        {
+            cannotBuyButton.SetActive(true);
             return;
         }
 
@@ -69,11 +75,6 @@ public class Menu : MonoBehaviour
                 selectedButton.SetActive(true);
             }
         }
-
-        if(levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex - 1] == 0)
-        {
-            cannotBuyButton.SetActive(true);
-        }
     }
 
     public void PlayClick()
@@ -81,6 +82,7 @@ public class Menu : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.Gameplay);
     }
 
+    #region Weapon Shop
     public void SetDeactiveButton()
     {
         canBuyButton.SetActive(false);
@@ -137,7 +139,6 @@ public class Menu : MonoBehaviour
     {
         player.weaponPrefab = weaponScriptableObject.GetWeaponPrefabs(currentWeaponIndex);
         player.currentPLayerWeaponIndex = currentWeaponIndex;
-        levelManager.currentWeaponIndex = currentWeaponIndex;
         equipButton.SetActive(false);
         selectedButton.SetActive(true);
     }
@@ -146,4 +147,50 @@ public class Menu : MonoBehaviour
     {
         weapons[currentWeaponIndex].SetActive(false);
     }
+
+    #endregion
+
+    #region Skin Shop
+
+    [Header("Skin Shop")]
+    [SerializeField] Button[] shopButton;
+    [SerializeField] GameObject[] scrollBars;
+
+    [Header("Head Skin")]
+    [SerializeField] Button[] headButtons;
+
+    private GameObject chooseFrameImagine;
+   
+    public void ResetAllButtonColor()
+    {
+        for (int i = 0; i < shopButton.Length; i++)
+        {
+            shopButton[i].image.color = new Color(0, 0, 0, 120f / 255);
+        }
+
+        for (int i = 0; i < scrollBars.Length; i++)
+        {
+            scrollBars[i].SetActive(false);
+        }
+    }
+
+    public void SkinShopButtonClick(Button x)
+    {
+        x.image.color = new Color(0, 0, 0, 0);
+    }
+
+    public void SaveLastClickButton(GameObject clickButtonChooseFrame)
+    {
+        chooseFrameImagine = clickButtonChooseFrame;
+    }
+
+    public void ResetChooseFrame()
+    {
+        if (chooseFrameImagine != null)
+            chooseFrameImagine.SetActive(false);
+    }
+
+
+
+    #endregion
 }

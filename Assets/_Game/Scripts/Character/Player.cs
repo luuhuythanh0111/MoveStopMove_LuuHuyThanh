@@ -12,7 +12,6 @@ public class Player : Character
     [SerializeField] private Transform radiusRing;
     [SerializeField] private LevelManager levelManager;
 
-    internal int currentPLayerWeaponIndex;
     internal GameObject weapon;
 
     private Vector3 moveDirection;
@@ -28,7 +27,8 @@ public class Player : Character
         radiusRing.localScale = new Vector3(radius-0.5f, radius-0.5f, 1);
 
         coin = levelManager.coin;
-
+        currentPLayerWeaponIndex = levelManager.currentWeaponIndex;
+        currentPLayerHeadIndex = levelManager.currentHeadSkinIndex;
         levelManager.SetCoinText();
     }
 

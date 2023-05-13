@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class Character : GameUnit
 {
+    [Header("Weapon")]
+    [SerializeField] protected ChangeSkin holdWeapon;
+    [Header("HeadSkin")]
+    [SerializeField] protected ChangeSkin headSkinSpawn;
+    [Header("PantSkin")]
+    [SerializeField] protected ChangeSkin pantSkinSpawn;
+    [Header("ArmoSkin")]
+    [SerializeField] protected ChangeSkin armoSkinSpawn;
+
+    [Header("Other")]
     [SerializeField] protected Transform throwPosition;
     [SerializeField] protected LayerMask targetMask;
     [SerializeField] internal Weapon weaponPrefab;
@@ -12,6 +22,10 @@ public class Character : GameUnit
     public float radius;
 
     internal bool isDead = false;
+    internal int currentPLayerWeaponIndex;
+    internal int currentPLayerHeadIndex;
+    internal int currentPlayerPantIndex;
+    internal int currentPlayerArmoIndex;
 
     protected Transform targetEnemy;
 
@@ -172,7 +186,12 @@ public class Character : GameUnit
         /// Spawn Position , Need to update new Way to spawn
         /////
         if (this is Player)
+        {
+            currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
+            currentPLayerHeadIndex = LevelManager.Instance.currentHeadSkinIndex;
+            currentPlayerPantIndex = LevelManager.Instance.currentPantSkinIndex;
             return;
+        }
         Vector3 spawnPosition = new Vector3(Random.Range(-25f, 25f),
                         0, Random.Range(-25f, 25f)
             );
@@ -194,8 +213,40 @@ public class Character : GameUnit
     ///=======================================================================\
 
     ///=======================================================================\
-    /// OnTrigger
-    ///=======================================================================\
+    #region Change Skin
 
+    public void WeaponClick()
+    {
+        if (LevelManager.Instance.currentWeaponIndex != Menu.Instance.currentWeaponIndex)
+        {
+            holdWeapon.ChangeWeapon(Menu.Instance.currentWeaponIndex);
+        }
+    }
+
+    public void HeadSkinClick(int ButtonIndex)
+    {
+        headSkinSpawn.ChangeHead(ButtonIndex);
+    }
+
+    public void PantSkinClick(int ButtonIndex)
+    {
+        pantSkinSpawn.ChangePant(ButtonIndex);
+    }
+
+    public void ArmoSkinClick(int ButtonIndex)
+    {
+        armoSkinSpawn.ChangeArmo(ButtonIndex);
+    }
+
+    public void ResetSkinWhenXClick()
+    {
+        HeadSkinClick(currentPLayerHeadIndex);
+        PantSkinClick(currentPlayerPantIndex);
+        ArmoSkinClick(currentPlayerArmoIndex);
+    }
+
+    #endregion
+
+    ///=======================================================================\
 
 }
