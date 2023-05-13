@@ -327,12 +327,14 @@ public class Menu : Singleton<Menu>
                 player.currentPLayerHeadIndex = currentButtonIndex;
                 player.HeadSkinClick(currentButtonIndex);
                 levelManager.currentHeadSkinIndex = currentButtonIndex;
+                headButtons[currentButtonIndex].EquipedIcon.SetActive(true);
                 SetCurrentTab(currentButtonIndex);
                 return;
             case (int)SkinShopTab.Pant:
                 player.currentPlayerPantIndex = currentButtonIndex;
                 player.PantSkinClick(currentButtonIndex);
                 levelManager.currentPantSkinIndex = currentButtonIndex;
+                pantButtons[currentButtonIndex].EquipedIcon.SetActive(true);
                 SetCurrentTab(currentButtonIndex);
                 return;
 
@@ -340,6 +342,7 @@ public class Menu : Singleton<Menu>
                 player.currentPlayerArmoIndex = currentButtonIndex;
                 player.ArmoSkinClick(currentButtonIndex);
                 levelManager.currentArmoSkinIndex = currentButtonIndex;
+                armoButtons[currentButtonIndex].EquipedIcon.SetActive(true);
                 SetCurrentTab(currentButtonIndex);
                 return;
 
@@ -357,12 +360,14 @@ public class Menu : Singleton<Menu>
                 player.currentPLayerHeadIndex = LevelManager.Instance.defaultHeadIndex;
                 player.HeadSkinClick(LevelManager.Instance.defaultHeadIndex);
                 levelManager.currentHeadSkinIndex = LevelManager.Instance.defaultHeadIndex;
+                headButtons[currentButtonIndex].EquipedIcon.SetActive(false);
                 SetCurrentTab(currentButtonIndex);
                 return;
             case (int)SkinShopTab.Pant:
                 player.currentPlayerPantIndex = currentButtonIndex;
                 player.PantSkinClick(currentButtonIndex);
                 levelManager.currentPantSkinIndex = currentButtonIndex;
+                pantButtons[currentButtonIndex].EquipedIcon.SetActive(false);
                 SetCurrentTab(currentButtonIndex);
                 return;
 
@@ -370,6 +375,7 @@ public class Menu : Singleton<Menu>
                 player.currentPlayerArmoIndex = currentButtonIndex;
                 player.ArmoSkinClick(currentButtonIndex);
                 levelManager.currentArmoSkinIndex = currentButtonIndex;
+                armoButtons[currentButtonIndex].EquipedIcon.SetActive(false);
                 SetCurrentTab(currentButtonIndex);
                 return;
 
