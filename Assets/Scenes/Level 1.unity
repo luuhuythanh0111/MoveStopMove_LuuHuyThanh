@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 38940939}
   - component: {fileID: 38940938}
   - component: {fileID: 38940937}
+  - component: {fileID: 38940941}
   m_Layer: 5
   m_Name: Pant (4)
   m_TagString: Untagged
@@ -334,8 +335,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 4
-  LockIcon: {fileID: 998283917}
+  LockIcon: {fileID: 998283915}
   EquipedIcon: {fileID: 161862904}
+  buttonType: 1
 --- !u!114 &38940938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,22 +382,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 472222487}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 472222487}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -466,6 +468,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38940935}
   m_CullTransparentMesh: 1
+--- !u!114 &38940941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38940935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &40248489
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +545,34 @@ MonoBehaviour:
   - {fileID: 1744250444}
   - {fileID: 348288244}
   - {fileID: 403362221}
-  headButtons: []
+  headButtons:
+  - {fileID: 461839006}
+  - {fileID: 1542088526}
+  - {fileID: 1458650758}
+  - {fileID: 206142074}
+  - {fileID: 402582965}
+  - {fileID: 1373112079}
+  - {fileID: 428492367}
+  - {fileID: 461301870}
+  - {fileID: 1029304643}
+  - {fileID: 1406501689}
+  pantButtons:
+  - {fileID: 1060110359}
+  - {fileID: 1601372468}
+  - {fileID: 1645168116}
+  - {fileID: 1201934638}
+  - {fileID: 38940937}
+  - {fileID: 303673311}
+  - {fileID: 1117385357}
+  - {fileID: 1159186964}
+  - {fileID: 2119235725}
+  armoButtons:
+  - {fileID: 1514170179}
+  - {fileID: 616494931}
+  canBuyButtonSkinShop: {fileID: 1156538275}
+  watchADButtonSkinShop: {fileID: 371576048}
+  selectButtonSkinShop: {fileID: 733832908}
+  unequipButtonSkinShop: {fileID: 133980413}
 --- !u!224 &40248491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1317,7 +1360,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 133980416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: Unequip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &133980416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,6 +2328,7 @@ GameObject:
   - component: {fileID: 206142076}
   - component: {fileID: 206142075}
   - component: {fileID: 206142074}
+  - component: {fileID: 206142078}
   m_Layer: 5
   m_Name: Head (4)
   m_TagString: Untagged
@@ -2317,8 +2373,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 3
-  LockIcon: {fileID: 1904275722}
+  LockIcon: {fileID: 1904275720}
   EquipedIcon: {fileID: 1893621027}
+  buttonType: 0
 --- !u!114 &206142075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2363,22 +2420,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1932889438}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1932889438}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2449,6 +2506,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206142072}
   m_CullTransparentMesh: 1
+--- !u!114 &206142078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206142072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &211044432
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,6 +3594,7 @@ GameObject:
   - component: {fileID: 303673313}
   - component: {fileID: 303673312}
   - component: {fileID: 303673311}
+  - component: {fileID: 303673315}
   m_Layer: 5
   m_Name: Pant (5)
   m_TagString: Untagged
@@ -3567,8 +3639,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 5
-  LockIcon: {fileID: 1738800433}
+  LockIcon: {fileID: 1738800431}
   EquipedIcon: {fileID: 1404423834}
+  buttonType: 1
 --- !u!114 &303673312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3613,22 +3686,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 438251103}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 438251103}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3699,6 +3772,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303673309}
   m_CullTransparentMesh: 1
+--- !u!114 &303673315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303673309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &303743791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4920,6 +5007,7 @@ GameObject:
   - component: {fileID: 402582967}
   - component: {fileID: 402582966}
   - component: {fileID: 402582965}
+  - component: {fileID: 402582969}
   m_Layer: 5
   m_Name: Head (5)
   m_TagString: Untagged
@@ -4964,8 +5052,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 4
-  LockIcon: {fileID: 1964727029}
+  LockIcon: {fileID: 1964727027}
   EquipedIcon: {fileID: 963172493}
+  buttonType: 0
 --- !u!114 &402582966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5010,22 +5099,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 172513389}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 172513389}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5096,6 +5185,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402582963}
   m_CullTransparentMesh: 1
+--- !u!114 &402582969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402582963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &403362221
 GameObject:
   m_ObjectHideFlags: 0
@@ -5410,6 +5513,7 @@ GameObject:
   - component: {fileID: 428492369}
   - component: {fileID: 428492368}
   - component: {fileID: 428492367}
+  - component: {fileID: 428492371}
   m_Layer: 5
   m_Name: Head (7)
   m_TagString: Untagged
@@ -5454,8 +5558,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 6
-  LockIcon: {fileID: 533364922}
+  LockIcon: {fileID: 533364920}
   EquipedIcon: {fileID: 143520012}
+  buttonType: 0
 --- !u!114 &428492368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5500,22 +5605,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2015893468}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 2015893468}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5586,6 +5691,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428492365}
   m_CullTransparentMesh: 1
+--- !u!114 &428492371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428492365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &431600439
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,6 +6397,7 @@ GameObject:
   - component: {fileID: 461301872}
   - component: {fileID: 461301871}
   - component: {fileID: 461301870}
+  - component: {fileID: 461301874}
   m_Layer: 5
   m_Name: Head (8)
   m_TagString: Untagged
@@ -6322,8 +6442,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 7
-  LockIcon: {fileID: 1288233155}
+  LockIcon: {fileID: 1288233153}
   EquipedIcon: {fileID: 2006671875}
+  buttonType: 0
 --- !u!114 &461301871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6368,22 +6489,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617889313}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1617889313}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6454,6 +6575,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461301868}
   m_CullTransparentMesh: 1
+--- !u!114 &461301874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461301868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &461839001
 GameObject:
   m_ObjectHideFlags: 0
@@ -6467,6 +6602,7 @@ GameObject:
   - component: {fileID: 461839004}
   - component: {fileID: 461839003}
   - component: {fileID: 461839006}
+  - component: {fileID: 461839007}
   m_Layer: 5
   m_Name: Head (1)
   m_TagString: Untagged
@@ -6542,10 +6678,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 59789844}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6554,10 +6690,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 59789844}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6641,8 +6777,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 0
-  LockIcon: {fileID: 1976834962}
+  LockIcon: {fileID: 1976834960}
   EquipedIcon: {fileID: 110363718}
+  buttonType: 0
+--- !u!114 &461839007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461839001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &465218725
 GameObject:
   m_ObjectHideFlags: 0
@@ -8510,6 +8661,7 @@ GameObject:
   - component: {fileID: 616494933}
   - component: {fileID: 616494932}
   - component: {fileID: 616494931}
+  - component: {fileID: 616494935}
   m_Layer: 5
   m_Name: Armo (1)
   m_TagString: Untagged
@@ -8554,8 +8706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 1
-  LockIcon: {fileID: 243899761}
+  LockIcon: {fileID: 243899759}
   EquipedIcon: {fileID: 2128678876}
+  buttonType: 2
 --- !u!114 &616494932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8600,22 +8753,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2019622029}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 2019622029}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8686,6 +8839,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616494929}
   m_CullTransparentMesh: 1
+--- !u!114 &616494935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616494929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1001 &617996197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9932,7 +10099,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 733832911}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: SelectClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &733832911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13154,6 +13333,7 @@ GameObject:
   - component: {fileID: 1029304645}
   - component: {fileID: 1029304644}
   - component: {fileID: 1029304643}
+  - component: {fileID: 1029304647}
   m_Layer: 5
   m_Name: Head (9)
   m_TagString: Untagged
@@ -13198,8 +13378,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 8
-  LockIcon: {fileID: 761864015}
+  LockIcon: {fileID: 761864013}
   EquipedIcon: {fileID: 741053835}
+  buttonType: 0
 --- !u!114 &1029304644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13244,22 +13425,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1562263718}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1562263718}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13330,6 +13511,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029304641}
   m_CullTransparentMesh: 1
+--- !u!114 &1029304647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029304641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1031779095
 GameObject:
   m_ObjectHideFlags: 0
@@ -13715,6 +13910,7 @@ GameObject:
   - component: {fileID: 1060110361}
   - component: {fileID: 1060110360}
   - component: {fileID: 1060110359}
+  - component: {fileID: 1060110363}
   m_Layer: 5
   m_Name: Pant (0)
   m_TagString: Untagged
@@ -13759,8 +13955,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 0
-  LockIcon: {fileID: 228891595}
+  LockIcon: {fileID: 228891593}
   EquipedIcon: {fileID: 1810162982}
+  buttonType: 1
 --- !u!114 &1060110360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13805,10 +14002,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1101365902}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13817,10 +14014,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1101365902}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13891,6 +14088,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060110357}
   m_CullTransparentMesh: 1
+--- !u!114 &1060110363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060110357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1072997987
 GameObject:
   m_ObjectHideFlags: 0
@@ -14584,6 +14795,7 @@ GameObject:
   - component: {fileID: 1117385359}
   - component: {fileID: 1117385358}
   - component: {fileID: 1117385357}
+  - component: {fileID: 1117385361}
   m_Layer: 5
   m_Name: Pant (6)
   m_TagString: Untagged
@@ -14628,8 +14840,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 6
-  LockIcon: {fileID: 1312517845}
+  LockIcon: {fileID: 1312517843}
   EquipedIcon: {fileID: 2015231323}
+  buttonType: 1
 --- !u!114 &1117385358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14674,22 +14887,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1507571050}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1507571050}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14760,6 +14973,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117385355}
   m_CullTransparentMesh: 1
+--- !u!114 &1117385361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117385355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1124861067
 GameObject:
   m_ObjectHideFlags: 0
@@ -15137,7 +15364,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 40248490}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: BuyClick
+        m_MethodName: ShopBuyClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15274,6 +15501,7 @@ GameObject:
   - component: {fileID: 1159186966}
   - component: {fileID: 1159186965}
   - component: {fileID: 1159186964}
+  - component: {fileID: 1159186968}
   m_Layer: 5
   m_Name: Pant (7)
   m_TagString: Untagged
@@ -15318,8 +15546,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 7
-  LockIcon: {fileID: 745917943}
+  LockIcon: {fileID: 745917941}
   EquipedIcon: {fileID: 1549499761}
+  buttonType: 1
 --- !u!114 &1159186965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15364,22 +15593,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 725782015}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 725782015}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15450,6 +15679,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159186962}
   m_CullTransparentMesh: 1
+--- !u!114 &1159186968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159186962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1170261488 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 77de8014aff37804f92ab58c8817cced, type: 3}
@@ -15984,6 +16227,7 @@ GameObject:
   - component: {fileID: 1201934640}
   - component: {fileID: 1201934639}
   - component: {fileID: 1201934638}
+  - component: {fileID: 1201934642}
   m_Layer: 5
   m_Name: Pant (3)
   m_TagString: Untagged
@@ -16028,8 +16272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 3
-  LockIcon: {fileID: 819003887}
+  LockIcon: {fileID: 819003885}
   EquipedIcon: {fileID: 234155655}
+  buttonType: 1
 --- !u!114 &1201934639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16074,22 +16319,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 452678054}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 452678054}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16160,6 +16405,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201934636}
   m_CullTransparentMesh: 1
+--- !u!114 &1201934642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201934636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1207420735
 GameObject:
   m_ObjectHideFlags: 0
@@ -18108,6 +18367,7 @@ GameObject:
   - component: {fileID: 1373112081}
   - component: {fileID: 1373112080}
   - component: {fileID: 1373112079}
+  - component: {fileID: 1373112083}
   m_Layer: 5
   m_Name: Head (6)
   m_TagString: Untagged
@@ -18152,8 +18412,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 5
-  LockIcon: {fileID: 1770600703}
+  LockIcon: {fileID: 1770600701}
   EquipedIcon: {fileID: 1780523502}
+  buttonType: 0
 --- !u!114 &1373112080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18198,22 +18459,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 105499635}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 105499635}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18284,6 +18545,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373112077}
   m_CullTransparentMesh: 1
+--- !u!114 &1373112083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373112077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1373598744
 GameObject:
   m_ObjectHideFlags: 0
@@ -19111,6 +19386,7 @@ GameObject:
   - component: {fileID: 1406501691}
   - component: {fileID: 1406501690}
   - component: {fileID: 1406501689}
+  - component: {fileID: 1406501693}
   m_Layer: 5
   m_Name: Head (10)
   m_TagString: Untagged
@@ -19155,8 +19431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 9
-  LockIcon: {fileID: 2049801688}
+  LockIcon: {fileID: 2049801686}
   EquipedIcon: {fileID: 1195248650}
+  buttonType: 0
 --- !u!114 &1406501690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19201,22 +19478,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1296326853}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 9
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1296326853}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19287,6 +19564,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406501687}
   m_CullTransparentMesh: 1
+--- !u!114 &1406501693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406501687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1407829513
 GameObject:
   m_ObjectHideFlags: 0
@@ -20018,7 +20309,8 @@ GameObject:
   - component: {fileID: 1458650756}
   - component: {fileID: 1458650755}
   - component: {fileID: 1458650754}
-  - component: {fileID: 1458650753}
+  - component: {fileID: 1458650757}
+  - component: {fileID: 1458650758}
   m_Layer: 5
   m_Name: Head (3)
   m_TagString: Untagged
@@ -20050,21 +20342,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1458650753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458650751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe6220e0852c384db7f560f0f0986c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonIndexInSO: 2
-  LockIcon: {fileID: 2146086780}
-  EquipedIcon: {fileID: 783556975}
 --- !u!114 &1458650754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20109,22 +20386,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2045320237}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 2045320237}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20195,6 +20472,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458650751}
   m_CullTransparentMesh: 1
+--- !u!114 &1458650757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458650751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
+--- !u!114 &1458650758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458650751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe6220e0852c384db7f560f0f0986c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonIndexInSO: 2
+  LockIcon: {fileID: 2146086778}
+  EquipedIcon: {fileID: 783556975}
+  buttonType: 0
 --- !u!1 &1460336391
 GameObject:
   m_ObjectHideFlags: 0
@@ -21036,6 +21343,7 @@ GameObject:
   - component: {fileID: 1514170181}
   - component: {fileID: 1514170180}
   - component: {fileID: 1514170179}
+  - component: {fileID: 1514170183}
   m_Layer: 5
   m_Name: Armo (0)
   m_TagString: Untagged
@@ -21080,8 +21388,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 0
-  LockIcon: {fileID: 1854155194}
+  LockIcon: {fileID: 1854155192}
   EquipedIcon: {fileID: 1363827563}
+  buttonType: 2
 --- !u!114 &1514170180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21126,10 +21435,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1838589440}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21138,10 +21447,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1838589440}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21212,6 +21521,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514170177}
   m_CullTransparentMesh: 1
+--- !u!114 &1514170183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514170177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1522073067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 7bf2d0115aa96964bb72869fce1a4aee, type: 3}
@@ -21427,6 +21750,7 @@ GameObject:
   - component: {fileID: 1542088528}
   - component: {fileID: 1542088527}
   - component: {fileID: 1542088526}
+  - component: {fileID: 1542088530}
   m_Layer: 5
   m_Name: Head (2)
   m_TagString: Untagged
@@ -21471,8 +21795,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 1
-  LockIcon: {fileID: 31247750}
+  LockIcon: {fileID: 31247748}
   EquipedIcon: {fileID: 1849768616}
+  buttonType: 0
 --- !u!114 &1542088527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21517,22 +21842,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2004490200}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 2004490200}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21603,6 +21928,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542088524}
   m_CullTransparentMesh: 1
+--- !u!114 &1542088530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542088524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1549499761
 GameObject:
   m_ObjectHideFlags: 0
@@ -22209,6 +22548,7 @@ GameObject:
   - component: {fileID: 1601372470}
   - component: {fileID: 1601372469}
   - component: {fileID: 1601372468}
+  - component: {fileID: 1601372472}
   m_Layer: 5
   m_Name: Pant (1)
   m_TagString: Untagged
@@ -22253,8 +22593,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 1
-  LockIcon: {fileID: 319136370}
+  LockIcon: {fileID: 319136368}
   EquipedIcon: {fileID: 320867783}
+  buttonType: 1
 --- !u!114 &1601372469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22299,22 +22640,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 14212066}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 14212066}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22385,6 +22726,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601372466}
   m_CullTransparentMesh: 1
+--- !u!114 &1601372472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601372466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1617889313
 GameObject:
   m_ObjectHideFlags: 0
@@ -22623,6 +22978,7 @@ GameObject:
   - component: {fileID: 1645168118}
   - component: {fileID: 1645168117}
   - component: {fileID: 1645168116}
+  - component: {fileID: 1645168120}
   m_Layer: 5
   m_Name: Pant (2)
   m_TagString: Untagged
@@ -22667,8 +23023,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 2
-  LockIcon: {fileID: 1301282466}
+  LockIcon: {fileID: 1301282464}
   EquipedIcon: {fileID: 1072997987}
+  buttonType: 1
 --- !u!114 &1645168117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22713,22 +23070,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1473421004}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1473421004}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22799,6 +23156,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645168114}
   m_CullTransparentMesh: 1
+--- !u!114 &1645168120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645168114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!224 &1656909372 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -27845,6 +28216,7 @@ GameObject:
   - component: {fileID: 2119235727}
   - component: {fileID: 2119235726}
   - component: {fileID: 2119235725}
+  - component: {fileID: 2119235729}
   m_Layer: 5
   m_Name: Pant (8)
   m_TagString: Untagged
@@ -27889,8 +28261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonIndexInSO: 8
-  LockIcon: {fileID: 1452338667}
+  LockIcon: {fileID: 1452338665}
   EquipedIcon: {fileID: 118577764}
+  buttonType: 1
 --- !u!114 &2119235726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27935,22 +28308,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1532972837}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 40248490}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetChooseFrame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 40248490}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ResetChooseFrame
-        m_Mode: 1
+      - m_Target: {fileID: 1532972837}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -28021,6 +28394,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119235723}
   m_CullTransparentMesh: 1
+--- !u!114 &2119235729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119235723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &2122116770
 GameObject:
   m_ObjectHideFlags: 0

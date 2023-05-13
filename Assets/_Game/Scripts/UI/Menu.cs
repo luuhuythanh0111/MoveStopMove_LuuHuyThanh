@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Menu : Singleton<Menu>
 {
+    [Header("Weapon Shop")]
     [SerializeField] private TextMeshProUGUI weaponName;
     [SerializeField] private TextMeshProUGUI weaponValueCanBuy;
     [SerializeField] private TextMeshProUGUI weaponValueCannotBuy;
@@ -37,18 +38,16 @@ public class Menu : Singleton<Menu>
         }
     }
 
-
-    private void Update()
+    public void PlayClick()
     {
-        if(inWeaponShop)
-        {
-            return;
-        }
+        GameManager.Instance.ChangeState(GameState.Gameplay);
     }
+
+    #region Weapon Shop
 
     public void SetActiveCurrentIndex()
     {
-        if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex-1] == 1)
+        if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex - 1] == 1)
         {
             canBuyButton.SetActive(true);
             watchADButton.SetActive(true);
@@ -65,10 +64,10 @@ public class Menu : Singleton<Menu>
 
         if (levelManager.openedWeaponIndex[currentWeaponIndex] == 1)
         {
-            if(player.currentPLayerWeaponIndex != currentWeaponIndex)
+            if (player.currentPLayerWeaponIndex != currentWeaponIndex)
             {
                 equipButton.SetActive(true);
-            
+
             }
             else
             {
@@ -77,12 +76,6 @@ public class Menu : Singleton<Menu>
         }
     }
 
-    public void PlayClick()
-    {
-        GameManager.Instance.ChangeState(GameState.Gameplay);
-    }
-
-    #region Weapon Shop
     public void SetDeactiveButton()
     {
         canBuyButton.SetActive(false);
@@ -157,10 +150,107 @@ public class Menu : Singleton<Menu>
     [SerializeField] GameObject[] scrollBars;
 
     [Header("Head Skin")]
-    [SerializeField] Button[] headButtons;
+    [SerializeField] ButtonIndex[] headButtons;
+
+    [Header("Pant Skin")]
+    [SerializeField] ButtonIndex[] pantButtons;
+
+    [Header("Armo Skin")]
+    [SerializeField] ButtonIndex[] armoButtons;
+
+    [Header("Other")]
+    [SerializeField] private GameObject canBuyButtonSkinShop;
+    [SerializeField] private GameObject watchADButtonSkinShop;
+    [SerializeField] private GameObject selectButtonSkinShop;
+    [SerializeField] private GameObject unequipButtonSkinShop;
 
     private GameObject chooseFrameImagine;
-   
+    
+    private enum SkinShopTab
+    {
+        Head,
+        Pant,
+        Armo,
+        SetSkin,
+    }
+
+    private int currentTab;
+    private int currentButtonIndex;
+
+
+    public void SetCurrentTab(int ButtonIndex)
+    {
+        for (int i = 0; i < scrollBars.Length; i++)
+        {
+            if (scrollBars[i].activeSelf==true)
+            {
+                currentTab = i;
+                break;
+            }
+        }
+
+        canBuyButtonSkinShop.SetActive(false);
+        watchADButtonSkinShop.SetActive(false);
+        selectButtonSkinShop.SetActive(false);
+        unequipButtonSkinShop.SetActive(false);
+
+        switch (currentTab)
+        {
+            case (int)SkinShopTab.Head:
+                if (LevelManager.Instance.openedHeadSkinIndex[ButtonIndex] == 0)
+                {
+                    canBuyButtonSkinShop.SetActive(true);
+                    watchADButtonSkinShop.SetActive(true);
+                }
+                else if (LevelManager.Instance.openedHeadSkinIndex[ButtonIndex] == 1 && player.currentPLayerHeadIndex == ButtonIndex)
+                {
+                    unequipButtonSkinShop.SetActive(true);
+                }
+                else
+                {
+                    selectButtonSkinShop.SetActive(true);
+                }
+                return;
+            case (int)SkinShopTab.Pant:
+                if (LevelManager.Instance.openedPantSkinIndex[ButtonIndex] == 0)
+                {
+                    canBuyButtonSkinShop.SetActive(true);
+                    watchADButtonSkinShop.SetActive(true);
+                }
+                else if (LevelManager.Instance.openedPantSkinIndex[ButtonIndex] == 1 && player.currentPlayerPantIndex == ButtonIndex)
+                {
+                    unequipButtonSkinShop.SetActive(true);
+                }
+                else
+                {
+                    selectButtonSkinShop.SetActive(true);
+                }
+                return;
+
+            case (int)SkinShopTab.Armo:
+                if (LevelManager.Instance.openedArmoSkinIndex[ButtonIndex] == 0)
+                {
+                    canBuyButtonSkinShop.SetActive(true);
+                    watchADButtonSkinShop.SetActive(true);
+                }
+                else if (LevelManager.Instance.openedArmoSkinIndex[ButtonIndex] == 1 && player.currentPlayerArmoIndex == ButtonIndex)
+                {
+                    unequipButtonSkinShop.SetActive(true);
+                }
+                else
+                {
+                    selectButtonSkinShop.SetActive(true);
+                }
+                return;
+
+            default:
+
+                return;
+        }
+
+    }
+
+
     public void ResetAllButtonColor()
     {
         for (int i = 0; i < shopButton.Length; i++)
@@ -184,13 +274,110 @@ public class Menu : Singleton<Menu>
         chooseFrameImagine = clickButtonChooseFrame;
     }
 
-    public void ResetChooseFrame()
+    public void ResetChooseFrame(int ButtonIndex)
     {
         if (chooseFrameImagine != null)
             chooseFrameImagine.SetActive(false);
+        
+        currentButtonIndex = ButtonIndex;
+        SetCurrentTab(ButtonIndex);
     }
 
+    public void ShopBuyClick()
+    {
+        if(LevelManager.Instance.coin >= 500)
+        {
+            LevelManager.Instance.coin -= 500;
+            LevelManager.Instance.SetCoinText();
 
+            switch (currentTab)
+            {
+                case (int)SkinShopTab.Head:
+                    LevelManager.Instance.openedHeadSkinIndex[currentButtonIndex] = 1;
+                    SetCurrentTab(currentButtonIndex);
+                    
+                    headButtons[currentButtonIndex].LockIcon.SetActive(false);
+                    return;
+                case (int)SkinShopTab.Pant:
+                    LevelManager.Instance.openedPantSkinIndex[currentButtonIndex] = 1;
+                    SetCurrentTab(currentButtonIndex);
+
+                    pantButtons[currentButtonIndex].LockIcon.SetActive(false);
+                    return;
+
+                case (int)SkinShopTab.Armo:
+                    LevelManager.Instance.openedArmoSkinIndex[currentButtonIndex] = 1;
+                    SetCurrentTab(currentButtonIndex);
+
+                    armoButtons[currentButtonIndex].LockIcon.SetActive(false);
+                    return;
+
+                default:
+
+                    return;
+            }
+        }
+    }
+
+    public void SelectClick()
+    {
+        switch (currentTab)
+        {
+            case (int)SkinShopTab.Head:
+                player.currentPLayerHeadIndex = currentButtonIndex;
+                player.HeadSkinClick(currentButtonIndex);
+                levelManager.currentHeadSkinIndex = currentButtonIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+            case (int)SkinShopTab.Pant:
+                player.currentPlayerPantIndex = currentButtonIndex;
+                player.PantSkinClick(currentButtonIndex);
+                levelManager.currentPantSkinIndex = currentButtonIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+
+            case (int)SkinShopTab.Armo:
+                player.currentPlayerArmoIndex = currentButtonIndex;
+                player.ArmoSkinClick(currentButtonIndex);
+                levelManager.currentArmoSkinIndex = currentButtonIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+
+            default:
+
+                return;
+        }
+    }
+
+    public void Unequip()
+    {
+        switch (currentTab)
+        {
+            case (int)SkinShopTab.Head:
+                player.currentPLayerHeadIndex = LevelManager.Instance.defaultHeadIndex;
+                player.HeadSkinClick(LevelManager.Instance.defaultHeadIndex);
+                levelManager.currentHeadSkinIndex = LevelManager.Instance.defaultHeadIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+            case (int)SkinShopTab.Pant:
+                player.currentPlayerPantIndex = currentButtonIndex;
+                player.PantSkinClick(currentButtonIndex);
+                levelManager.currentPantSkinIndex = currentButtonIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+
+            case (int)SkinShopTab.Armo:
+                player.currentPlayerArmoIndex = currentButtonIndex;
+                player.ArmoSkinClick(currentButtonIndex);
+                levelManager.currentArmoSkinIndex = currentButtonIndex;
+                SetCurrentTab(currentButtonIndex);
+                return;
+
+            default:
+
+                return;
+        }
+    }
 
     #endregion
 }

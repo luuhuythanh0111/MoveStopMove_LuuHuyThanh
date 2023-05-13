@@ -27,9 +27,9 @@ public class ChangeSkin : MonoBehaviour
     {
         if (skin != null)
             skin.OnDespawn();
-        if(ButtonIndex == -1)
+        if (ButtonIndex >= LevelManager.Instance.skinScriptableObject.headSkin.Length || ButtonIndex < 0)
         {
-            if(skin!=null)
+            if (skin != null)
                 skin.OnDespawn();
             return;
         }
@@ -53,7 +53,6 @@ public class ChangeSkin : MonoBehaviour
     {
         if (skin != null)
             skin.OnDespawn();
-        Debug.Log(ButtonIndex);
         if (ButtonIndex >= LevelManager.Instance.skinScriptableObject.armoSkin.Length || ButtonIndex < 0)
         {
             if (skin != null)

@@ -9,6 +9,10 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField] internal SkinScriptableObject skinScriptableObject;
 
+    internal int defaultWeaponIndex;
+    internal int defaultHeadIndex;
+    internal int defaultArmoIndex;
+
     internal int coin;
 
     internal int currentWeaponIndex;
@@ -40,6 +44,19 @@ public class LevelManager : Singleton<LevelManager>
         {
             openedHeadSkinIndex[i] = PlayerPrefs.GetInt("openedHeadSkinIndex" + i.ToString());
         }
+        for (int i = 0; i < openedPantSkinIndex.Length; i++)
+        {
+            openedPantSkinIndex[i] = PlayerPrefs.GetInt("openedPantSkinIndex" + i.ToString());
+        }
+        for (int i = 0; i < openedArmoSkinIndex.Length; i++)
+        {
+            openedArmoSkinIndex[i] = PlayerPrefs.GetInt("openedArmoSkinIndex" + i.ToString());
+        }
+
+        defaultWeaponIndex = 0;
+        defaultArmoIndex = skinScriptableObject.armoSkin.Length;
+        defaultHeadIndex = skinScriptableObject.headSkin.Length;
+        ///SpawnBot
 
         for (int i = 0; i < 10; i++)
         {
@@ -52,10 +69,24 @@ public class LevelManager : Singleton<LevelManager>
         currentWeaponIndex = 0;
         currentPantSkinIndex = 9;
         currentArmoSkinIndex = 2;
+        coin = 1500;
         for (int i = 0; i < openedWeaponIndex.Length; i++)
         {
             openedWeaponIndex[i] = 0;
         }
+        for (int i = 0; i < openedHeadSkinIndex.Length; i++)
+        {
+            openedHeadSkinIndex[i] = 0;
+        }
+        for (int i = 0; i < openedPantSkinIndex.Length; i++)
+        {
+            openedPantSkinIndex[i] = 0;
+        }
+        for (int i = 0; i < openedArmoSkinIndex.Length; i++)
+        {
+            openedArmoSkinIndex[i] = 0;
+        }
+
         openedWeaponIndex[currentWeaponIndex] = 1;
     }
 
@@ -76,6 +107,16 @@ public class LevelManager : Singleton<LevelManager>
         for (int i = 0; i < openedHeadSkinIndex.Length; i++)
         {
             PlayerPrefs.SetInt("openedHeadSkinIndex" + i.ToString(), openedHeadSkinIndex[i]);
+        }
+
+        for (int i = 0; i < openedPantSkinIndex.Length; i++)
+        {
+            PlayerPrefs.SetInt("openedPantSkinIndex" + i.ToString(), openedPantSkinIndex[i]);
+        }
+
+        for (int i = 0; i < openedArmoSkinIndex.Length; i++)
+        {
+            PlayerPrefs.SetInt("openedArmoSkinIndex" + i.ToString(), openedArmoSkinIndex[i]);
         }
     }
 
