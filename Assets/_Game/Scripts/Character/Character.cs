@@ -13,9 +13,13 @@ public class Character : GameUnit
     [SerializeField] protected ChangeSkin armoSkinSpawn;
 
     [Header("Other")]
+    [SerializeField] protected float moveSpeed;
     [SerializeField] protected Transform throwPosition;
+    [SerializeField] protected Transform radiusRing;
     [SerializeField] protected LayerMask targetMask;
     [SerializeField] internal Weapon weaponPrefab;
+
+    protected Transform targetEnemy;
 
     public Animator anim;
     public Transform playerBody;
@@ -27,7 +31,8 @@ public class Character : GameUnit
     internal int currentPlayerPantIndex;
     internal int currentPlayerArmoIndex;
 
-    protected Transform targetEnemy;
+    internal float defaultRadius;
+    internal float defaultMoveSpeed;
 
     private Transform m_Transform;
     private Collider[] rangeCheck;
@@ -165,14 +170,14 @@ public class Character : GameUnit
     internal void LookAtTarget()
     {
         playerBody.LookAt(targetEnemy);
+    }
 
-        /// throw weapon
+    internal void ThrowWeapon()
+    {
         Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
-        weapon.transform.position = Transform.position;
+               
         weapon.LifeTime = radius / weapon.Speed;
         weapon.OnInit(throwPosition.position, targetEnemy.position);
-
-        ///
     }
 
     public override void OnInit()
@@ -182,6 +187,7 @@ public class Character : GameUnit
         currentAnimName = "Idle";
         ChangeAnim("Idle");
         targetEnemy = null;
+        defaultRadius = radius;
 
         /// Spawn Position , Need to update new Way to spawn
         /////
@@ -196,8 +202,11 @@ public class Character : GameUnit
                         0, Random.Range(-25f, 25f)
             );
         transform.position = spawnPosition;
+    }
 
-
+    public override void OnInit(Character t)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void OnDespawn()
@@ -212,30 +221,29 @@ public class Character : GameUnit
 
     ///=======================================================================\
 
-    ///=======================================================================\
     #region Change Skin
 
     public void WeaponClick()
     {
         if (LevelManager.Instance.currentWeaponIndex != Menu.Instance.currentWeaponIndex)
         {
-            holdWeapon.ChangeWeapon(Menu.Instance.currentWeaponIndex);
+            holdWeapon.ChangeWeapon(Menu.Instance.currentWeaponIndex, this);
         }
     }
 
     public void HeadSkinClick(int ButtonIndex)
     {
-        headSkinSpawn.ChangeHead(ButtonIndex);
+        headSkinSpawn.ChangeHead(ButtonIndex, this);
     }
 
     public void PantSkinClick(int ButtonIndex)
     {
-        pantSkinSpawn.ChangePant(ButtonIndex);
+        pantSkinSpawn.ChangePant(ButtonIndex, this);
     }
 
     public void ArmoSkinClick(int ButtonIndex)
     {
-        armoSkinSpawn.ChangeArmo(ButtonIndex);
+        armoSkinSpawn.ChangeArmo(ButtonIndex, this);
     }
 
     public void ResetSkinWhenXClick()
@@ -247,6 +255,21 @@ public class Character : GameUnit
 
     #endregion
 
-    ///=======================================================================\
+    
 
+    #region Change Character Buff
+
+    internal void ChangeRadius(float rangeBuff)
+    {
+        radius += rangeBuff;
+        radiusRing.localScale = new Vector3(radius - 0.4f, radius - 0.4f, 1);
+        Debug.Log(radius);
+    }
+
+    internal void ChangeMoveSpeed(float moveSpeedBuff)
+    {
+        moveSpeed += moveSpeedBuff;
+    }
+
+    #endregion
 }

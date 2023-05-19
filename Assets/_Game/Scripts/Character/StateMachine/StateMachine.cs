@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class StateMachine<T> where T : Character
 {
     private IState<T> currentState;
@@ -7,6 +9,14 @@ public class StateMachine<T> where T : Character
     {
         if(GameManager.Instance.IsState(GameState.MainMenu))
         {
+            if(currentState == null)
+            {
+                currentState = state;
+                if (currentState != null)
+                {
+                    currentState.OnEnter(typeClass);
+                }
+            }
             return;
         }
         //Debug.Log(currentState + " -> "   + state);

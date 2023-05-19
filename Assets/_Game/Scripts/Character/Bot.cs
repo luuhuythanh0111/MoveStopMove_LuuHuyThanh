@@ -16,6 +16,8 @@ public class Bot : Character
     {
         base.Start();
         currentState.ChangeState(new BotIdleState());
+        moveSpeed = agent.speed;
+        defaultMoveSpeed = moveSpeed;
     }
 
     public void SetDestination(Vector3 position)

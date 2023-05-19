@@ -12,6 +12,7 @@ public class Weapon : GameUnit
     private float speed = 6f; public float Speed { get { return speed; } set { speed = value; } }
 
     private Vector3 moveDirection;
+    private Vector3 localPosition;
 
     virtual protected void Update()
     {
@@ -29,8 +30,11 @@ public class Weapon : GameUnit
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
     {
         timer = 0f;
+        localPosition = transform.localPosition;
         transform.position = spawnPosition;
+        
         moveDirection = targetEnemy - spawnPosition;
+        transform.LookAt(targetEnemy);
     }
 
     public override void OnDespawn()
@@ -39,6 +43,11 @@ public class Weapon : GameUnit
     }
 
     public override void OnInit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnInit(Character t)
     {
         throw new System.NotImplementedException();
     }

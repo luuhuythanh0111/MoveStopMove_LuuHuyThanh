@@ -6,6 +6,9 @@ using UnityEngine.TextCore.Text;
 public class BotAttackState : IState<Character>
 {
     public float CountDownResetAttackTime;
+    public float timer = 0;
+    
+    public bool haveAttack;
     public void OnEnter(Character t)
     {
         ((Bot)t).Attack();
@@ -13,6 +16,8 @@ public class BotAttackState : IState<Character>
         t.IsMoving = false;
         CountDownResetAttackTime = t.ResetAttackTime;
         t.ChangeAnim("Attack");
+        haveAttack = false;
+        timer = 0;
     }
 
     public void OnExecute(Character t)
@@ -22,6 +27,13 @@ public class BotAttackState : IState<Character>
         {
             t.IsAttack = false;
             t.currentState.ChangeState(new BotIdleState());
+        }
+        timer += Time.deltaTime;
+
+        if (timer >= 0.11f && haveAttack == false)
+        {
+            haveAttack = true;
+            t.ThrowWeapon();
         }
 
         if (t.CheckAnimationFinish())

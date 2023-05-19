@@ -11,6 +11,7 @@ public class LevelManager : Singleton<LevelManager>
 
     internal int defaultWeaponIndex;
     internal int defaultHeadIndex;
+    internal int defaultPantIndex;
     internal int defaultArmoIndex;
 
     internal int coin;
@@ -56,6 +57,7 @@ public class LevelManager : Singleton<LevelManager>
         defaultWeaponIndex = 0;
         defaultArmoIndex = skinScriptableObject.armoSkin.Length;
         defaultHeadIndex = skinScriptableObject.headSkin.Length;
+        defaultPantIndex = skinScriptableObject.pantSkin.Length;
         ///SpawnBot
 
         for (int i = 0; i < 10; i++)
@@ -69,7 +71,7 @@ public class LevelManager : Singleton<LevelManager>
         currentWeaponIndex = 0;
         currentPantSkinIndex = 9;
         currentArmoSkinIndex = 2;
-        coin = 1500;
+        coin = 15000;
         for (int i = 0; i < openedWeaponIndex.Length; i++)
         {
             openedWeaponIndex[i] = 0;

@@ -181,11 +181,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf199d89babc8c46b0207b7205b3345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdWeapon: {fileID: 0}
+  headSkinSpawn: {fileID: 0}
+  pantSkinSpawn: {fileID: 0}
+  armoSkinSpawn: {fileID: 0}
   throwPosition: {fileID: 6079701902304350054}
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  weaponPrefab: {fileID: 3059547911871941440, guid: aadd3cb08a0272d42bb553f24c8e3783, type: 3}
+  weaponPrefab: {fileID: 4425973665848500464, guid: 1b4433ce61aae114a879ddfc0d4515d2, type: 3}
   anim: {fileID: 3279643127940881667}
   playerBody: {fileID: 464738289614175326}
   radius: 8
@@ -201,7 +205,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

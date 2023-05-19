@@ -20,6 +20,9 @@ public class SkinScriptableObject : ScriptableObject
     [Header("Set Skin")]
     [SerializeField] internal Skin[] setSkin; ///not update yet
 
+    [Header("Buff Text")]
+    [SerializeField] internal string[] textBuff;
+
     public Skin GetWeaponSkin(int skinIndex)
     {
         return weaponSkin[skinIndex];
@@ -43,5 +46,10 @@ public class SkinScriptableObject : ScriptableObject
     public Skin GetArmoSkin(int skinIndex)
     {
         return armoSkin[skinIndex];
+    }
+
+    public string GetTextBuff(int skinBuffType)
+    {
+        return textBuff[skinBuffType];
     }
 }

@@ -8,8 +8,6 @@ public class Player : Character
     [SerializeField] private FloatingJoystick floatingJoystick;
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private Transform orientation;
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private Transform radiusRing;
     [SerializeField] private LevelManager levelManager;
 
     internal GameObject weapon;
@@ -24,12 +22,13 @@ public class Player : Character
     {
         base.Start();
         this.currentState.ChangeState(new PlayerIdleState());
-        radiusRing.localScale = new Vector3(radius-0.5f, radius-0.5f, 1);
+        radiusRing.localScale = new Vector3(radius-0.4f, radius-0.4f, 1);
 
         coin = levelManager.coin;
         currentPLayerWeaponIndex = levelManager.currentWeaponIndex;
         currentPLayerHeadIndex = levelManager.currentHeadSkinIndex;
         levelManager.SetCoinText();
+        defaultMoveSpeed = moveSpeed;
     }
 
     protected override void UpdateCharacterState()

@@ -10,6 +10,7 @@ public class Menu : Singleton<Menu>
     [SerializeField] private TextMeshProUGUI weaponName;
     [SerializeField] private TextMeshProUGUI weaponValueCanBuy;
     [SerializeField] private TextMeshProUGUI weaponValueCannotBuy;
+    [SerializeField] private TextMeshProUGUI weaponBuffText;
 
     [SerializeField] private GameObject canBuyButton;
     [SerializeField] private GameObject cannotBuyButton;
@@ -47,6 +48,7 @@ public class Menu : Singleton<Menu>
 
     public void SetActiveCurrentIndex()
     {
+        weaponBuffText.SetText(weaponScriptableObject.GetBuffText(currentWeaponIndex));
         if (levelManager.openedWeaponIndex[currentWeaponIndex] == 0 && levelManager.openedWeaponIndex[currentWeaponIndex - 1] == 1)
         {
             canBuyButton.SetActive(true);
@@ -163,6 +165,7 @@ public class Menu : Singleton<Menu>
     [SerializeField] private GameObject watchADButtonSkinShop;
     [SerializeField] private GameObject selectButtonSkinShop;
     [SerializeField] private GameObject unequipButtonSkinShop;
+    [SerializeField] private TextMeshProUGUI skinBuffText;
 
     private GameObject chooseFrameImagine;
     
@@ -197,6 +200,7 @@ public class Menu : Singleton<Menu>
         switch (currentTab)
         {
             case (int)SkinShopTab.Head:
+                skinBuffText.SetText(LevelManager.Instance.skinScriptableObject.GetTextBuff((int)SkinShopTab.Head));
                 if (LevelManager.Instance.openedHeadSkinIndex[ButtonIndex] == 0)
                 {
                     canBuyButtonSkinShop.SetActive(true);
@@ -212,6 +216,7 @@ public class Menu : Singleton<Menu>
                 }
                 return;
             case (int)SkinShopTab.Pant:
+                skinBuffText.SetText(LevelManager.Instance.skinScriptableObject.GetTextBuff((int)SkinShopTab.Pant));
                 if (LevelManager.Instance.openedPantSkinIndex[ButtonIndex] == 0)
                 {
                     canBuyButtonSkinShop.SetActive(true);
@@ -228,6 +233,7 @@ public class Menu : Singleton<Menu>
                 return;
 
             case (int)SkinShopTab.Armo:
+                skinBuffText.SetText(LevelManager.Instance.skinScriptableObject.GetTextBuff((int)SkinShopTab.Armo));
                 if (LevelManager.Instance.openedArmoSkinIndex[ButtonIndex] == 0)
                 {
                     canBuyButtonSkinShop.SetActive(true);
@@ -324,6 +330,8 @@ public class Menu : Singleton<Menu>
         switch (currentTab)
         {
             case (int)SkinShopTab.Head:
+                if (0 <= player.currentPLayerHeadIndex && player.currentPLayerHeadIndex < headButtons.Length)
+                    headButtons[player.currentPLayerHeadIndex].EquipedIcon.SetActive(false);
                 player.currentPLayerHeadIndex = currentButtonIndex;
                 player.HeadSkinClick(currentButtonIndex);
                 levelManager.currentHeadSkinIndex = currentButtonIndex;
@@ -331,6 +339,8 @@ public class Menu : Singleton<Menu>
                 SetCurrentTab(currentButtonIndex);
                 return;
             case (int)SkinShopTab.Pant:
+                if (0 <= player.currentPlayerPantIndex && player.currentPlayerPantIndex < pantButtons.Length)
+                    pantButtons[player.currentPlayerPantIndex].EquipedIcon.SetActive(false);
                 player.currentPlayerPantIndex = currentButtonIndex;
                 player.PantSkinClick(currentButtonIndex);
                 levelManager.currentPantSkinIndex = currentButtonIndex;
@@ -339,6 +349,8 @@ public class Menu : Singleton<Menu>
                 return;
 
             case (int)SkinShopTab.Armo:
+                if (0 <= player.currentPlayerArmoIndex && player.currentPlayerArmoIndex < armoButtons.Length)
+                    armoButtons[player.currentPlayerArmoIndex].EquipedIcon.SetActive(false);
                 player.currentPlayerArmoIndex = currentButtonIndex;
                 player.ArmoSkinClick(currentButtonIndex);
                 levelManager.currentArmoSkinIndex = currentButtonIndex;
@@ -364,9 +376,9 @@ public class Menu : Singleton<Menu>
                 SetCurrentTab(currentButtonIndex);
                 return;
             case (int)SkinShopTab.Pant:
-                player.currentPlayerPantIndex = currentButtonIndex;
-                player.PantSkinClick(currentButtonIndex);
-                levelManager.currentPantSkinIndex = currentButtonIndex;
+                player.currentPlayerPantIndex = LevelManager.Instance.defaultPantIndex;
+                player.PantSkinClick(LevelManager.Instance.defaultPantIndex);
+                levelManager.currentPantSkinIndex = LevelManager.Instance.defaultPantIndex;
                 pantButtons[currentButtonIndex].EquipedIcon.SetActive(false);
                 SetCurrentTab(currentButtonIndex);
                 return;

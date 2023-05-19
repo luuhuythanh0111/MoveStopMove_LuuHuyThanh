@@ -13,6 +13,7 @@ public class BotDieState : IState<Character>
         dieTime = 2.1f;
         timer = 0;
         t.ChangeAnim("Dead");
+        t.playerBody.gameObject.layer = 0;
     }
 
     public void OnExecute(Character t)
@@ -29,6 +30,6 @@ public class BotDieState : IState<Character>
 
     public void OnExit(Character t)
     {
-        
+        t.playerBody.gameObject.layer = 3;
     }
 }

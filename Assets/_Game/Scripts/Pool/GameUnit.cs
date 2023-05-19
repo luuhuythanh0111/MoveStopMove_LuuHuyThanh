@@ -17,6 +17,7 @@ public abstract class GameUnit : MonoBehaviour
     }
 
     public abstract void OnInit();
+    public abstract void OnInit(Character t);
     public abstract void OnInit(Vector3 spawnPosition, Vector3 targetEnemy);
     public abstract void OnDespawn();
 

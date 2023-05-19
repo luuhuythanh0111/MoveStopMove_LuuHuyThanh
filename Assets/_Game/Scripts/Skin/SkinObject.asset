@@ -61,3 +61,7 @@ MonoBehaviour:
   - {fileID: -4799010342011239576, guid: 91a0dffb7859a644a97eba2e184d57c3, type: 3}
   - {fileID: 2412831111282087712, guid: 0847e4f5329c86e46b1018cb1b83e83b, type: 3}
   setSkin: []
+  textBuff:
+  - 5% Range
+  - 8% Move Speed
+  - 25% Gold

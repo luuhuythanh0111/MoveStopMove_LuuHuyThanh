@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044f83a50453a6c4da000a053c0ae94c, type: 3}
   m_Name: WeaponsObject
   m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 3059547911871941440, guid: 866ab9ff0ec17964d96836375feb70a5, type: 3}
-  - {fileID: 3059547911871941440, guid: aadd3cb08a0272d42bb553f24c8e3783, type: 3}
   weaponsName:
   - HAMMER
   - LOLLIPOP
@@ -30,15 +27,28 @@ MonoBehaviour:
   - UZI
   weaponsValue: 3200000064000000c80000002c010000900100005802000020030000e8030000dc050000d0070000c4090000b80b0000
   prefabs:
-  - {fileID: 4859895593429350855, guid: 1f9c5e4436782fc4b8ee80d8c813f29b, type: 3}
-  - {fileID: -330521484391008123, guid: 60b81067bb0afd640991f7b9cde18747, type: 3}
-  - {fileID: 9209370835944369822, guid: 6927d059112bd384abfda49aefe9991d, type: 3}
-  - {fileID: 658711836423804434, guid: 72e50060f4de07144927fd834327b0cc, type: 3}
-  - {fileID: -1519090700244471710, guid: 6d584bc4528b42844b221e09fd71b042, type: 3}
-  - {fileID: -125243468319083368, guid: ee5b4371c75e1ab4b9a4fcdb01918c76, type: 3}
-  - {fileID: -2636602888881580577, guid: 89405f45b877a3c4b990673b4e9dbdae, type: 3}
-  - {fileID: -4002985507906779275, guid: fa60025bb0434d543a383a36ae52de06, type: 3}
-  - {fileID: 784771035539357729, guid: eff59511b056a5148bb1292517511d90, type: 3}
+  - {fileID: 6781475782274286863, guid: eff812f36d6839b40b4f9b359b14ccbc, type: 3}
+  - {fileID: 1859560450281140075, guid: 0d00cc9f1653a4c4e8b86c1571a01077, type: 3}
+  - {fileID: 400220823737647325, guid: 6927d059112bd384abfda49aefe9991d, type: 3}
+  - {fileID: 5505323447707056791, guid: 705675f07bdcb01489750801d44d61a2, type: 3}
+  - {fileID: 5061656765597150267, guid: d6d2cc43420f8e84aabc5b02438129fd, type: 3}
+  - {fileID: 7129238150513055464, guid: ee5b4371c75e1ab4b9a4fcdb01918c76, type: 3}
+  - {fileID: 2464015815113451364, guid: c17006ae5595f304c944cbd9e60e1df1, type: 3}
+  - {fileID: 5665613895738849657, guid: fa60025bb0434d543a383a36ae52de06, type: 3}
+  - {fileID: 1264520223755231742, guid: 6ec885debc937de4488fe24cc981eb5e, type: 3}
   - {fileID: -7036769837705960554, guid: 781fd00fc8a52044a8ed5eae161fc840, type: 3}
-  - {fileID: 6014235405174914760, guid: 0d4d9ec5cc296e547924d2a5ae55c8f6, type: 3}
+  - {fileID: 4425973665848500464, guid: 1b4433ce61aae114a879ddfc0d4515d2, type: 3}
   - {fileID: 8766434937112808416, guid: 4f5737b353ee9b54cadc1d760952df41, type: 3}
+  buffText:
+  - +1 Range
+  - +3 Range
+  - ' +5 Attack Speed'
+  - +5 Range
+  - +5 Range*2
+  - +10 Range
+  - +15 Range
+  - +15 Attack Speed
+  - +20 Range
+  - +10 Range*2
+  - +25 Attack Speed
+  - +25 Range
