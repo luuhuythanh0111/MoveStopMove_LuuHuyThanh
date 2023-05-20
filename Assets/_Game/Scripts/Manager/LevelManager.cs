@@ -35,12 +35,15 @@ public class LevelManager : Singleton<LevelManager>
     {
         coin = PlayerPrefs.GetInt("coin");
         currentWeaponIndex = PlayerPrefs.GetInt("currentWeaponIndex");
+        currentHeadSkinIndex = PlayerPrefs.GetInt("currentHeadSkinIndex");
+        currentPantSkinIndex = PlayerPrefs.GetInt("currentPantSkinIndex");
+        currentArmoSkinIndex = PlayerPrefs.GetInt("currentArmoSkinIndex");
+
         for (int i = 0; i < openedWeaponIndex.Length; i++)
         {
             openedWeaponIndex[i] = PlayerPrefs.GetInt("openedWeaponIndex" + i.ToString());
         }
-
-        currentHeadSkinIndex = PlayerPrefs.GetInt("currentHeadSkinIndex");
+        
         for (int i = 0; i < openedHeadSkinIndex.Length; i++)
         {
             openedHeadSkinIndex[i] = PlayerPrefs.GetInt("openedHeadSkinIndex" + i.ToString());
@@ -58,6 +61,7 @@ public class LevelManager : Singleton<LevelManager>
         defaultArmoIndex = skinScriptableObject.armoSkin.Length;
         defaultHeadIndex = skinScriptableObject.headSkin.Length;
         defaultPantIndex = skinScriptableObject.pantSkin.Length;
+
         ///SpawnBot
 
         for (int i = 0; i < 10; i++)
@@ -66,30 +70,35 @@ public class LevelManager : Singleton<LevelManager>
             bot.OnInit();
         }
 
-        /// Reset info
-        currentHeadSkinIndex = -1;
-        currentWeaponIndex = 0;
-        currentPantSkinIndex = 9;
-        currentArmoSkinIndex = 2;
+        /// Hack
         coin = 15000;
-        for (int i = 0; i < openedWeaponIndex.Length; i++)
-        {
-            openedWeaponIndex[i] = 0;
-        }
-        for (int i = 0; i < openedHeadSkinIndex.Length; i++)
-        {
-            openedHeadSkinIndex[i] = 0;
-        }
-        for (int i = 0; i < openedPantSkinIndex.Length; i++)
-        {
-            openedPantSkinIndex[i] = 0;
-        }
-        for (int i = 0; i < openedArmoSkinIndex.Length; i++)
-        {
-            openedArmoSkinIndex[i] = 0;
-        }
 
         openedWeaponIndex[currentWeaponIndex] = 1;
+
+        /// Reset info
+        //currentHeadSkinIndex = -1;
+        //currentWeaponIndex = 0;
+        //currentPantSkinIndex = 9;
+        //currentArmoSkinIndex = 2;
+
+        //for (int i = 0; i < openedWeaponIndex.Length; i++)
+        //{
+        //    openedWeaponIndex[i] = 0;
+        //}
+        //for (int i = 0; i < openedHeadSkinIndex.Length; i++)
+        //{
+        //    openedHeadSkinIndex[i] = 0;
+        //}
+        //for (int i = 0; i < openedPantSkinIndex.Length; i++)
+        //{
+        //    openedPantSkinIndex[i] = 0;
+        //}
+        //for (int i = 0; i < openedArmoSkinIndex.Length; i++)
+        //{
+        //    openedArmoSkinIndex[i] = 0;
+        //}
+
+
     }
 
     public void SetCoinText()
@@ -101,6 +110,10 @@ public class LevelManager : Singleton<LevelManager>
     {
         PlayerPrefs.SetInt("coin", coin);
         PlayerPrefs.SetInt("currentWeaponIndex", currentWeaponIndex); /// not this, make player set it weapon
+        PlayerPrefs.SetInt("currentHeadSkinIndex", currentHeadSkinIndex);
+        PlayerPrefs.SetInt("currentPantSkinIndex", currentPantSkinIndex);
+        PlayerPrefs.SetInt("currentArmoSkinIndex", currentArmoSkinIndex);
+
         for (int i = 0; i < openedWeaponIndex.Length; i++)
         {
             PlayerPrefs.SetInt("openedWeaponIndex" + i.ToString(), openedWeaponIndex[i]);

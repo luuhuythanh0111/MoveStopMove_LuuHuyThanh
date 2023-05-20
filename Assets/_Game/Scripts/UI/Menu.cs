@@ -384,7 +384,7 @@ public class Menu : Singleton<Menu>
                 return;
 
             case (int)SkinShopTab.Armo:
-                player.currentPlayerArmoIndex = currentButtonIndex;
+                player.currentPlayerArmoIndex = LevelManager.Instance.defaultPantIndex;
                 player.ArmoSkinClick(currentButtonIndex);
                 levelManager.currentArmoSkinIndex = currentButtonIndex;
                 armoButtons[currentButtonIndex].EquipedIcon.SetActive(false);

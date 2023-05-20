@@ -21,14 +21,24 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
+
         this.currentState.ChangeState(new PlayerIdleState());
         radiusRing.localScale = new Vector3(radius-0.4f, radius-0.4f, 1);
 
         coin = levelManager.coin;
         currentPLayerWeaponIndex = levelManager.currentWeaponIndex;
         currentPLayerHeadIndex = levelManager.currentHeadSkinIndex;
+        currentPlayerPantIndex = levelManager.currentPantSkinIndex;
+        currentPlayerArmoIndex = levelManager.currentArmoSkinIndex;
+
         levelManager.SetCoinText();
         defaultMoveSpeed = moveSpeed;
+
+        /// change skin at start time
+        holdWeapon.ChangeWeapon(currentPLayerWeaponIndex, this);
+        pantSkinSpawn.ChangePant(currentPlayerPantIndex, this);
+        headSkinSpawn.ChangeHead(currentPLayerHeadIndex, this);
+        armoSkinSpawn.ChangeArmo(currentPlayerArmoIndex, this);
     }
 
     protected override void UpdateCharacterState()
