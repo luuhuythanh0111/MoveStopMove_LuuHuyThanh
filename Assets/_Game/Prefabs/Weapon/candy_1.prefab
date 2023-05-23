@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 1703599602498082449}
   - component: {fileID: 1703599602496788145}
   - component: {fileID: 1703599602495657073}
-  - component: {fileID: 4774033281466218592}
-  - component: {fileID: 4711598283040108710}
   m_Layer: 0
   m_Name: candy_1 Box
   m_TagString: Weapon
@@ -86,35 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &4774033281466218592
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703599602497915569}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &4711598283040108710
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703599602497915569}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01314385, y: 0.026098542, z: 0.0029168997}
-  m_Center: {x: -0.0053241313, y: -0.00060601434, z: 1.7462295e-10}
 --- !u!1 &5505323447707056785
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5505323447707056784}
   - component: {fileID: 5505323447707056790}
+  - component: {fileID: 7882297756921283512}
   - component: {fileID: 5505323447707056791}
   m_Layer: 3
   m_Name: candy_1
@@ -165,6 +135,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7882297756921283512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505323447707056785}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: -0.2, z: 0.35}
 --- !u!114 &5505323447707056791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 5505323447707056790}
   flyingThing: {fileID: 5505323447707056784}
+  character: {fileID: 0}

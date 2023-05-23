@@ -8,6 +8,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private TextMeshProUGUI coinText;
 
     [SerializeField] internal SkinScriptableObject skinScriptableObject;
+    [SerializeField] private WayPointMission waypointPrefab;
 
     internal int defaultWeaponIndex;
     internal int defaultHeadIndex;
@@ -15,6 +16,7 @@ public class LevelManager : Singleton<LevelManager>
     internal int defaultArmoIndex;
 
     internal int coin;
+    internal int maxCharacterLevel;
 
     internal int currentWeaponIndex;
     internal int[] openedWeaponIndex = new int[12];
@@ -34,6 +36,7 @@ public class LevelManager : Singleton<LevelManager>
     private void Awake()
     {
         coin = PlayerPrefs.GetInt("coin");
+        maxCharacterLevel = 0;
         currentWeaponIndex = PlayerPrefs.GetInt("currentWeaponIndex");
         currentHeadSkinIndex = PlayerPrefs.GetInt("currentHeadSkinIndex");
         currentPantSkinIndex = PlayerPrefs.GetInt("currentPantSkinIndex");
@@ -64,11 +67,14 @@ public class LevelManager : Singleton<LevelManager>
 
         ///SpawnBot
 
-        for (int i = 0; i < 10; i++)
-        {
-            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-            bot.OnInit();
-        }
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    //Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+        //    //bot.OnInit();
+        //    WayPointMission wayPointMission = SimplePool.Spawn<WayPointMission>(waypointPrefab);
+        //    //wayPointMission.OnInit(bot);
+        //    wayPointMission.OnInit();
+        //}
 
         /// Hack
         coin = 15000;
@@ -97,7 +103,6 @@ public class LevelManager : Singleton<LevelManager>
         //{
         //    openedArmoSkinIndex[i] = 0;
         //}
-
 
     }
 

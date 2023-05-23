@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 
 public class Cache
@@ -21,27 +22,16 @@ public class Cache
     //------------------------------------------------------------------------------------------------------------
 
 
-    //private static Dictionary<Collider, Burger> m_Burger = new Dictionary<Collider, Burger>();
+    private static Dictionary<Collider, PlayerBody> characters = new Dictionary<Collider, PlayerBody>();
 
-    //public static Burger GetBurger(Collider key)
-    //{
-    //    if (!m_Burger.ContainsKey(key))
-    //    {
-    //        Burger burger = key.GetComponent<Burger>();
+    public static PlayerBody GetPlayerBody(Collider collider)
+    {
+        if (!characters.ContainsKey(collider))
+        {
+            characters.Add(collider, collider.GetComponent<PlayerBody>());
+        }
 
-    //        if (burger != null)
-    //        {
-    //            m_Burger.Add(key, burger);
-    //        }
-    //        else
-    //        {
-    //            return null;
-    //        }
-    //    }
-
-    //    return m_Burger[key];
-    //}
-
-
+        return characters[collider];
+    }
 }
 

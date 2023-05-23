@@ -17,6 +17,9 @@ public class Character : GameUnit
     [SerializeField] protected Transform throwPosition;
     [SerializeField] protected Transform radiusRing;
     [SerializeField] protected LayerMask targetMask;
+    [SerializeField] protected WayPointMission waypointPrefab;
+
+    [SerializeField] internal int characterLevel;
     [SerializeField] internal Weapon weaponPrefab;
 
     protected Transform targetEnemy;
@@ -53,6 +56,8 @@ public class Character : GameUnit
         }
     }
 
+    #region StateMachine and Update
+
     public StateMachine<Character> currentState;
     public float ResetAttackTime;
     protected string currentAnimName = "";
@@ -79,11 +84,10 @@ public class Character : GameUnit
     {
         currentState.UpdateState(this);
     }
+    #endregion
 
+    #region Animation and Check Animation ended
 
-    ///=======================================================================\
-    /// Animation and Check Animation ended
-    ///=======================================================================\
     public void ChangeAnim(string animName)
     {
         if (currentAnimName == animName)
@@ -99,12 +103,10 @@ public class Character : GameUnit
         return (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !anim.IsInTransition(0));
     }
 
-    ///=======================================================================\
+    #endregion
 
+    #region RangeAttack and Target
 
-    ///=======================================================================\
-    /// RangeAttack and Target
-    ///=======================================================================\
 
     private IEnumerator FOVRoutine(float time)
     {
@@ -150,12 +152,9 @@ public class Character : GameUnit
         }
     }
 
-    ///=======================================================================\
+    #endregion
 
-
-    ///=======================================================================\
-    /// Attack and LookAtTarget
-    ///=======================================================================\
+    #region Attack and LookAtTarget
 
     virtual internal void Attack()
     {
@@ -178,7 +177,10 @@ public class Character : GameUnit
                
         weapon.LifeTime = radius / weapon.Speed;
         weapon.OnInit(throwPosition.position, targetEnemy.position);
+        weapon.OnInit(this);
     }
+
+    #endregion
 
     public override void OnInit()
     {
@@ -188,9 +190,9 @@ public class Character : GameUnit
         ChangeAnim("Idle");
         targetEnemy = null;
         defaultRadius = radius;
+        characterLevel = 0;
 
-        /// Spawn Position , Need to update new Way to spawn
-        /////
+       
         if (this is Player)
         {
             currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
@@ -198,6 +200,15 @@ public class Character : GameUnit
             currentPlayerPantIndex = LevelManager.Instance.currentPantSkinIndex;
             return;
         }
+
+        //WayPointMission waypointBot = SimplePool.Spawn<WayPointMission>(waypointPrefab);
+        //waypointBot.target = this.transform;
+        //waypointBot.OnInit(this);
+
+        /// Spawn Position , Need to update new Way to spawn
+        /////
+        ///
+        characterLevel = Random.Range(0, LevelManager.Instance.maxCharacterLevel + 2);
         Vector3 spawnPosition = new Vector3(Random.Range(-25f, 25f),
                         0, Random.Range(-25f, 25f)
             );
@@ -255,7 +266,6 @@ public class Character : GameUnit
 
     #endregion
 
-    
 
     #region Change Character Buff
 
@@ -263,7 +273,6 @@ public class Character : GameUnit
     {
         radius += rangeBuff;
         radiusRing.localScale = new Vector3(radius - 0.4f, radius - 0.4f, 1);
-        Debug.Log(radius);
     }
 
     internal void ChangeMoveSpeed(float moveSpeedBuff)

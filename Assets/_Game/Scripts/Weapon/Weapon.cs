@@ -5,6 +5,7 @@ public class Weapon : GameUnit
 
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private Transform flyingThing;
+    [SerializeField] private Character character;
 
     private float lifeTime; public float LifeTime { set { lifeTime = value; } }
 
@@ -25,6 +26,35 @@ public class Weapon : GameUnit
             rigidbody.velocity = Vector3.zero;
             OnDespawn();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("PlayerBody"))
+        {
+            PlayerBody enemy = Cache.GetPlayerBody(other);
+
+
+            if(enemy.character.characterLevel == 0)
+            {
+                character.characterLevel += 1;
+            }
+            else
+            {
+                character.characterLevel += GetLog2(enemy.character.characterLevel);
+                Debug.Log(GetLog2(enemy.character.characterLevel));
+            }
+        }
+    }
+
+    private int GetLog2(int x)
+    {
+        int ans = 0;
+        while( (1 << ans) <= x)
+        {
+            ans++;
+        }
+        return ans--;
     }
 
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
@@ -49,6 +79,6 @@ public class Weapon : GameUnit
 
     public override void OnInit(Character t)
     {
-        throw new System.NotImplementedException();
+        character = t;
     }
 }
