@@ -7,8 +7,12 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Bot botPrefab;
     [SerializeField] private TextMeshProUGUI coinText;
 
-    [SerializeField] internal SkinScriptableObject skinScriptableObject;
     [SerializeField] private WayPointMission waypointPrefab;
+
+    [SerializeField] internal SkinScriptableObject skinScriptableObject;
+    [SerializeField] internal SkinIconScriptableObject skinIconScriptableObject;
+    [SerializeField] internal Character player;
+    
 
     internal int defaultWeaponIndex;
     internal int defaultHeadIndex;

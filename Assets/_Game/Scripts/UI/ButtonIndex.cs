@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonIndex : MonoBehaviour
+public class ButtonIndex : GameUnit
 {
     public int ButtonIndexInSO;
 
+    public GameObject ChooseFrame;
     public GameObject LockIcon;
     public GameObject EquipedIcon;
+    public Image BackGround;
 
     public ButtonType buttonType;
+    public Button button;
 
     private void Start()
     {
@@ -78,6 +82,47 @@ public class ButtonIndex : MonoBehaviour
         
     }
 
+    public void Click()
+    {
+        Menu.Instance.ResetChooseFrame(ButtonIndexInSO);
+        ChooseFrame.SetActive(true);
+        Menu.Instance.SaveLastClickButton(ChooseFrame);
+        switch (buttonType)
+        {
+            case ButtonType.HeadSkin:
+                LevelManager.Instance.player.HeadSkinClick(ButtonIndexInSO);
+                return;
+            case ButtonType.PantSkin:
+                LevelManager.Instance.player.PantSkinClick(ButtonIndexInSO);
+                return;
+            case ButtonType.ArmoSkin:
+                LevelManager.Instance.player.ArmoSkinClick(ButtonIndexInSO);
+                return;
+            default:
+                return;
+        }
+        
+    }
+
+    public override void OnInit()
+    {
+        
+    }
+
+    public override void OnInit(Character t)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnDespawn()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 public enum ButtonType

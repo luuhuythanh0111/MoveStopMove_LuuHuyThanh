@@ -43,7 +43,7 @@ public class WayPointMission : GameUnit
 
     public override void OnInit()
     {
-        Debug.Log(1);
+        //Debug.Log(1);
     }
 
     public override void OnInit(Character t)

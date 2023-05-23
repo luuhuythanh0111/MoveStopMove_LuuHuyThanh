@@ -152,13 +152,13 @@ public class Menu : Singleton<Menu>
     [SerializeField] GameObject[] scrollBars;
 
     [Header("Head Skin")]
-    [SerializeField] ButtonIndex[] headButtons;
+    [SerializeField] internal List<ButtonIndex> headButtons;
 
     [Header("Pant Skin")]
-    [SerializeField] ButtonIndex[] pantButtons;
+    [SerializeField] internal List<ButtonIndex> pantButtons;
 
     [Header("Armo Skin")]
-    [SerializeField] ButtonIndex[] armoButtons;
+    [SerializeField] internal List<ButtonIndex> armoButtons;
 
     [Header("Other")]
     [SerializeField] private GameObject canBuyButtonSkinShop;
@@ -302,7 +302,8 @@ public class Menu : Singleton<Menu>
                     LevelManager.Instance.openedHeadSkinIndex[currentButtonIndex] = 1;
                     SetCurrentTab(currentButtonIndex);
                     
-                    headButtons[currentButtonIndex].LockIcon.SetActive(false);
+                    if(headButtons[currentButtonIndex].LockIcon != null)
+                        headButtons[currentButtonIndex].LockIcon.SetActive(false);
                     return;
                 case (int)SkinShopTab.Pant:
                     LevelManager.Instance.openedPantSkinIndex[currentButtonIndex] = 1;
@@ -330,7 +331,7 @@ public class Menu : Singleton<Menu>
         switch (currentTab)
         {
             case (int)SkinShopTab.Head:
-                if (0 <= player.currentPLayerHeadIndex && player.currentPLayerHeadIndex < headButtons.Length)
+                if (0 <= player.currentPLayerHeadIndex && player.currentPLayerHeadIndex < headButtons.Count)
                     headButtons[player.currentPLayerHeadIndex].EquipedIcon.SetActive(false);
                 player.currentPLayerHeadIndex = currentButtonIndex;
                 player.HeadSkinClick(currentButtonIndex);
@@ -339,7 +340,7 @@ public class Menu : Singleton<Menu>
                 SetCurrentTab(currentButtonIndex);
                 return;
             case (int)SkinShopTab.Pant:
-                if (0 <= player.currentPlayerPantIndex && player.currentPlayerPantIndex < pantButtons.Length)
+                if (0 <= player.currentPlayerPantIndex && player.currentPlayerPantIndex < pantButtons.Count)
                     pantButtons[player.currentPlayerPantIndex].EquipedIcon.SetActive(false);
                 player.currentPlayerPantIndex = currentButtonIndex;
                 player.PantSkinClick(currentButtonIndex);
@@ -349,7 +350,7 @@ public class Menu : Singleton<Menu>
                 return;
 
             case (int)SkinShopTab.Armo:
-                if (0 <= player.currentPlayerArmoIndex && player.currentPlayerArmoIndex < armoButtons.Length)
+                if (0 <= player.currentPlayerArmoIndex && player.currentPlayerArmoIndex < armoButtons.Count)
                     armoButtons[player.currentPlayerArmoIndex].EquipedIcon.SetActive(false);
                 player.currentPlayerArmoIndex = currentButtonIndex;
                 player.ArmoSkinClick(currentButtonIndex);
