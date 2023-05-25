@@ -19,8 +19,8 @@ public class UICanvas : MonoBehaviour
 
     protected void Init()
     {
-        m_RectTransform = GetComponent<RectTransform>();
-        m_Animator = GetComponent<Animator>();
+        //m_RectTransform = GetComponent<RectTransform>();
+        //m_Animator = GetComponent<Animator>();
     }
 
     public virtual void Setup()

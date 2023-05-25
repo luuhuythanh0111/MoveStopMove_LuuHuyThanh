@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5274711197725448679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdf199d89babc8c46b0207b7205b3345, type: 3}
   m_Name: 
@@ -1433,6 +1433,7 @@ MonoBehaviour:
   anim: {fileID: 5274711198513713562}
   playerBody: {fileID: 5274711196906966760}
   radius: 8
+  wayPointMarker: {fileID: 0}
   ResetAttackTime: 4
   agent: {fileID: 5274711197725448698}
 --- !u!195 &5274711197725448698

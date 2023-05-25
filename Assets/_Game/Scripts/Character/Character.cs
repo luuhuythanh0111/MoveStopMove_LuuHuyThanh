@@ -184,7 +184,7 @@ public class Character : GameUnit
             return;
         weapon.OnInit(throwPosition.position, 
             targetEnemy.position);
-        weapon.OnInit(this);
+        weapon.character = this;
     }
 
     #endregion

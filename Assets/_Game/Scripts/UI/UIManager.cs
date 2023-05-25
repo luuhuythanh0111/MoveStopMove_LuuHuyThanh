@@ -10,16 +10,20 @@ public class UIManager : Singleton<UIManager>
 {
     //dict for quick query UI prefab
     private Dictionary<System.Type, UICanvas> uiCanvasPrefab = new Dictionary<System.Type, UICanvas>();
-
     //list from resource
-    private UICanvas[] uiResources;
-
+    [SerializeField] private UICanvas[] uiResources;
+    
     //dict for UI active
     private Dictionary<System.Type, UICanvas> uiCanvas = new Dictionary<System.Type, UICanvas>();
 
     public Transform CanvasParentTF;
 
     #region Canvas
+
+    public void Awake()
+    {
+        
+    }
 
     public T OpenUI<T>() where T : UICanvas
     {
@@ -67,7 +71,7 @@ public class UIManager : Singleton<UIManager>
     {
         if (!uiCanvasPrefab.ContainsKey(typeof(T)))
         {
-            if (uiResources == null)
+            if (uiResources.Length == 0)
             {
                 uiResources = Resources.LoadAll<UICanvas>("UI/");
             }
@@ -77,11 +81,11 @@ public class UIManager : Singleton<UIManager>
                 if (uiResources[i] is T)
                 {
                     uiCanvasPrefab[typeof(T)] = uiResources[i];
+
                     break;
                 }
             }
         }
-
         return uiCanvasPrefab[typeof(T)] as T;
     }
 

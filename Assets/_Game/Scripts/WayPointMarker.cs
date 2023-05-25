@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 public class WayPointMarker : GameUnit
 {
     public Image image;
+    public RectTransform rectTransform;
+    public RectTransform arrowImage;
+
     public Transform target;
     public TextMeshProUGUI levelText;
     public Vector2 imageSize;
@@ -29,10 +33,43 @@ public class WayPointMarker : GameUnit
             pos.x = Screen.width - pos.x;
         }
 
+        /// Check to Show arrow image
+        if (IsBetween(pos.x, minX, maxX) && IsBetween(pos.y, minY, maxY))
+        {
+            arrowImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            arrowImage.gameObject.SetActive(true);
+        }
+        ///
+
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         pos.z = 0;
         image.transform.position = pos;
+        
+
+        if(rectTransform.anchoredPosition.x < 0)
+        {
+            arrowImage.eulerAngles = new Vector3(0, 0, 90f - ConvertRadianToDegree(rectTransform.anchoredPosition.y / -rectTransform.anchoredPosition.x));
+        }
+        else
+        {
+            arrowImage.eulerAngles = new Vector3(0, 0,-90 + ConvertRadianToDegree(rectTransform.anchoredPosition.y / rectTransform.anchoredPosition.x));
+        }
+
+        Vector2 lookDirect = rectTransform.anchoredPosition - Vector2.zero;
+        arrowImage.anchoredPosition = Vector2.zero + lookDirect.normalized * 50f;
+    }
+    private bool IsBetween(float testValue, float bound1, float bound2)
+    {
+        return (testValue >= Math.Min(bound1, bound2) && testValue <= Math.Max(bound1, bound2));
+    }
+
+    private float ConvertRadianToDegree(float radian)
+    {
+        return (Mathf.Atan(radian) * 180) / Mathf.PI;
     }
 
     public void SetLevelText(int level)

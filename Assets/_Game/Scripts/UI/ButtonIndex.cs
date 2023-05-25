@@ -15,6 +15,7 @@ public class ButtonIndex : GameUnit
 
     public ButtonType buttonType;
     public Button button;
+    public SkinShop skinShop;
 
     private void Start()
     {
@@ -84,9 +85,9 @@ public class ButtonIndex : GameUnit
 
     public void Click()
     {
-        Menu.Instance.ResetChooseFrame(ButtonIndexInSO);
+        skinShop.ResetChooseFrame(ButtonIndexInSO);
         ChooseFrame.SetActive(true);
-        Menu.Instance.SaveLastClickButton(ChooseFrame);
+        skinShop.SaveLastClickButton(ChooseFrame);
         switch (buttonType)
         {
             case ButtonType.HeadSkin:

@@ -5,7 +5,8 @@ public class Weapon : GameUnit
 
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private Transform flyingThing;
-    [SerializeField] private Character character;
+    
+    public Character character;
 
     private float lifeTime; public float LifeTime { set { lifeTime = value; } }
 
@@ -38,11 +39,13 @@ public class Weapon : GameUnit
             if(enemy.character.characterLevel == 0)
             {
                 character.characterLevel += 1;
+                LevelManager.Instance.coin += 1;
             }
             else
             {
                 character.characterLevel += GetLog2(enemy.character.characterLevel);
                 //Debug.Log(GetLog2(enemy.character.characterLevel));
+                LevelManager.Instance.coin += GetLog2(enemy.character.characterLevel);
             }
             character.wayPointMarker.SetLevelText(character.characterLevel);
         }
