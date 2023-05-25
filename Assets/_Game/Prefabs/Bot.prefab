@@ -1427,7 +1427,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  waypointPrefab: {fileID: -2262164591181367349, guid: a4ac2971a616f8d478f47ca7c7d80867, type: 3}
+  waypointPrefab: {fileID: 36696862999781144, guid: a4ac2971a616f8d478f47ca7c7d80867, type: 3}
   characterLevel: 0
   weaponPrefab: {fileID: 6781475782274286863, guid: eff812f36d6839b40b4f9b359b14ccbc, type: 3}
   anim: {fileID: 5274711198513713562}

@@ -21,7 +21,7 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
-
+        this.OnInit();
         this.currentState.ChangeState(new PlayerIdleState());
         radiusRing.localScale = new Vector3(radius-0.4f, radius-0.4f, 1);
 

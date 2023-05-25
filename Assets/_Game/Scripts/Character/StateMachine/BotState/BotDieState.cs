@@ -14,6 +14,11 @@ public class BotDieState : IState<Character>
         timer = 0;
         t.ChangeAnim("Dead");
         t.playerBody.gameObject.layer = 0;
+        if (t.wayPointMarker != null)
+        {
+            //Debug.Log(1);
+            t.wayPointMarker.OnDespawn();
+        }
     }
 
     public void OnExecute(Character t)
@@ -23,7 +28,6 @@ public class BotDieState : IState<Character>
         if(timer >= dieTime)
         {
             t.OnDespawn();
-            SimplePool.Despawn(t);
         }
         t.isDead = true;
     }

@@ -17,7 +17,7 @@ public class Character : GameUnit
     [SerializeField] protected Transform throwPosition;
     [SerializeField] protected Transform radiusRing;
     [SerializeField] protected LayerMask targetMask;
-    [SerializeField] protected WayPointMission waypointPrefab;
+    [SerializeField] protected WayPointMarker waypointPrefab;
 
     [SerializeField] internal int characterLevel;
     [SerializeField] internal Weapon weaponPrefab;
@@ -27,6 +27,8 @@ public class Character : GameUnit
     public Animator anim;
     public Transform playerBody;
     public float radius;
+
+    public WayPointMarker wayPointMarker;
 
     internal bool isDead = false;
     internal int currentPLayerWeaponIndex;
@@ -39,6 +41,7 @@ public class Character : GameUnit
 
     private Transform m_Transform;
     private Collider[] rangeCheck;
+    
     private bool isMoving = false;
     private bool isAttack = false;
     private bool haveTarget = false;
@@ -71,7 +74,6 @@ public class Character : GameUnit
     virtual protected void Start()
     {
         StartCoroutine(FOVRoutine(0.2f));
-        this.OnInit();
     }
 
     // Update is called once per frame
@@ -82,6 +84,10 @@ public class Character : GameUnit
 
     virtual protected void UpdateCharacterState()
     {
+        //if (wayPointMarker != null && GameManager.Instance.IsState(GameState.Gameplay))
+        //{
+        //    wayPointMarker.gameObject.SetActive(true);
+        //}
         currentState.UpdateState(this);
     }
     #endregion
@@ -110,12 +116,10 @@ public class Character : GameUnit
 
     private IEnumerator FOVRoutine(float time)
     {
-        Cache.GetWFS(time);
-
         
         while (true)
         {
-            yield return time;
+            yield return Cache.GetWFS(time);
             FieldOfViewCheck();
         }
     }
@@ -176,11 +180,15 @@ public class Character : GameUnit
         Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
                
         weapon.LifeTime = radius / weapon.Speed;
-        weapon.OnInit(throwPosition.position, targetEnemy.position);
+        if (throwPosition == null || targetEnemy == null)
+            return;
+        weapon.OnInit(throwPosition.position, 
+            targetEnemy.position);
         weapon.OnInit(this);
     }
 
     #endregion
+
 
     public override void OnInit()
     {
@@ -192,7 +200,10 @@ public class Character : GameUnit
         defaultRadius = radius;
         characterLevel = 0;
 
-       
+        wayPointMarker = SimplePool.Spawn<WayPointMarker>(waypointPrefab);
+        wayPointMarker.OnInit(this);
+        //wayPointMarker.gameObject.SetActive(false);
+
         if (this is Player)
         {
             currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
@@ -201,9 +212,7 @@ public class Character : GameUnit
             return;
         }
 
-        //WayPointMission waypointBot = SimplePool.Spawn<WayPointMission>(waypointPrefab);
-        //waypointBot.target = this.transform;
-        //waypointBot.OnInit(this);
+        
 
         /// Spawn Position , Need to update new Way to spawn
         /////

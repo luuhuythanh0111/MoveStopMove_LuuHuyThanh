@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Bot botPrefab;
     [SerializeField] private TextMeshProUGUI coinText;
 
-    [SerializeField] private WayPointMission waypointPrefab;
+    //[SerializeField] private WayPointMarker waypointPrefab;
 
     [SerializeField] internal SkinScriptableObject skinScriptableObject;
     [SerializeField] internal SkinIconScriptableObject skinIconScriptableObject;
@@ -37,7 +38,7 @@ public class LevelManager : Singleton<LevelManager>
     /// <summary>
     /// Awake to take out the data of player
     /// </summary>
-    private void Awake()
+    private void Start()
     {
         coin = PlayerPrefs.GetInt("coin");
         maxCharacterLevel = 0;
@@ -71,14 +72,11 @@ public class LevelManager : Singleton<LevelManager>
 
         ///SpawnBot
 
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    //Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-        //    //bot.OnInit();
-        //    WayPointMission wayPointMission = SimplePool.Spawn<WayPointMission>(waypointPrefab);
-        //    //wayPointMission.OnInit(bot);
-        //    wayPointMission.OnInit();
-        //}
+        for (int i = 0; i < 10; i++)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+            bot.OnInit();
+        }
 
         /// Hack
         coin = 15000;

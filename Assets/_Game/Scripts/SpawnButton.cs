@@ -8,7 +8,7 @@ public class SpawnButton : MonoBehaviour
     public List<ButtonIndex> skinButtonPrefabs;
 
 
-    private void Start()
+    private void Awake()
     {
         
         for(int i=0; i<LevelManager.Instance.skinScriptableObject.headSkin.Length; i++)
@@ -17,7 +17,6 @@ public class SpawnButton : MonoBehaviour
             button.OnInit();
             button.ButtonIndexInSO = i;
             button.BackGround.sprite = LevelManager.Instance.skinIconScriptableObject.GetHeadSkinIcon(i);
-
             Menu.Instance.headButtons.Add(button);
         }
 

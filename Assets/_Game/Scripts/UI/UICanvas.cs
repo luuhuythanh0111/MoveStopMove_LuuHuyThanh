@@ -19,7 +19,8 @@ public class UICanvas : MonoBehaviour
 
     protected void Init()
     {
-        
+        m_RectTransform = GetComponent<RectTransform>();
+        m_Animator = GetComponent<Animator>();
     }
 
     public virtual void Setup()
@@ -36,13 +37,13 @@ public class UICanvas : MonoBehaviour
     public virtual void Open()
     {
         gameObject.SetActive(true);
-        
+        //anim
     }
 
     public virtual void Close()
     {
         UIManager.Instance.RemoveBackUI(this);
-        
+        //anim
         gameObject.SetActive(false);
         if (IsDestroyOnClose)
         {

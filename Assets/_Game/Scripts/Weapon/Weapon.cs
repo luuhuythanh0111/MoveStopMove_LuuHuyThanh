@@ -42,8 +42,9 @@ public class Weapon : GameUnit
             else
             {
                 character.characterLevel += GetLog2(enemy.character.characterLevel);
-                Debug.Log(GetLog2(enemy.character.characterLevel));
+                //Debug.Log(GetLog2(enemy.character.characterLevel));
             }
+            character.wayPointMarker.SetLevelText(character.characterLevel);
         }
     }
 
@@ -59,6 +60,11 @@ public class Weapon : GameUnit
 
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
     {
+        if(spawnPosition == null || targetEnemy == null)
+        {
+            OnDespawn();
+            return;
+        }
         timer = 0f;
         localPosition = transform.localPosition;
         transform.position = spawnPosition;
