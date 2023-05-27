@@ -31,12 +31,12 @@ public class Weapon : GameUnit
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PlayerBody"))
+        if (other.CompareTag("PlayerBody"))
         {
             PlayerBody enemy = Cache.GetPlayerBody(other);
 
 
-            if(enemy.character.characterLevel == 0)
+            if (enemy.character.characterLevel == 0)
             {
                 character.characterLevel += 1;
                 LevelManager.Instance.coin += 1;
@@ -48,6 +48,12 @@ public class Weapon : GameUnit
                 LevelManager.Instance.coin += GetLog2(enemy.character.characterLevel);
             }
             character.wayPointMarker.SetLevelText(character.characterLevel);
+            if (character.characterLevel > LevelManager.Instance.scaleScriptableObject.GetScale(character.indexInScaleSO).Level)
+            {
+                character.ChangeScale(LevelManager.Instance.scaleScriptableObject.GetScale(character.indexInScaleSO).ScaleSize);
+                character.indexInScaleSO++;
+
+            }
         }
     }
 

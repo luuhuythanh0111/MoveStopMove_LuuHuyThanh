@@ -267,5 +267,8 @@ public class SkinShop : UICanvas
     {
         UIManager.Instance.OpenUI<MainMenu>();
         Close();
+
+        GameManager.Instance.cameraFollow.SetUpCameraForMainMenu();
+        LevelManager.Instance.player.ChangeAnim("Idle");
     }
 }

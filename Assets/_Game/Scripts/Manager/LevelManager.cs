@@ -6,12 +6,14 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private Bot botPrefab;
-    [SerializeField] private TextMeshProUGUI coinText;
+
 
     //[SerializeField] private WayPointMarker waypointPrefab;
-
+    [SerializeField] internal TextMeshProUGUI coinText;
     [SerializeField] internal SkinScriptableObject skinScriptableObject;
     [SerializeField] internal SkinIconScriptableObject skinIconScriptableObject;
+    [SerializeField] internal NameScriptableObject nameScriptableObject;
+    [SerializeField] internal ScaleScriptableObject scaleScriptableObject;
     [SerializeField] internal Character player;
     
 

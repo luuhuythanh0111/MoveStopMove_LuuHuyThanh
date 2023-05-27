@@ -8,8 +8,11 @@ using UnityEngine.UI;
 public class WayPointMarker : GameUnit
 {
     public Image image;
+    public Image arrowImageMaterial;
     public RectTransform rectTransform;
     public RectTransform arrowImage;
+    //public TextMeshProUGUI nameText;
+    public Text nameText;
 
     public Transform target;
     public TextMeshProUGUI levelText;
@@ -37,10 +40,12 @@ public class WayPointMarker : GameUnit
         if (IsBetween(pos.x, minX, maxX) && IsBetween(pos.y, minY, maxY))
         {
             arrowImage.gameObject.SetActive(false);
+            nameText.gameObject.SetActive(true);
         }
         else
         {
             arrowImage.gameObject.SetActive(true);
+            nameText.gameObject.SetActive(false);
         }
         ///
 

@@ -14,10 +14,16 @@ public class BotDieState : IState<Character>
         timer = 0;
         t.ChangeAnim("Dead");
         t.playerBody.gameObject.layer = 0;
+        
         if (t.wayPointMarker != null)
         {
             //Debug.Log(1);
             t.wayPointMarker.OnDespawn();
+        }
+
+        if(t is Player)
+        {
+            ((Player)t).rigidbody.velocity = Vector3.zero;
         }
     }
 

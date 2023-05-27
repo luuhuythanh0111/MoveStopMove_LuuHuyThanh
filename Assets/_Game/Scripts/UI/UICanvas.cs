@@ -25,8 +25,8 @@ public class UICanvas : MonoBehaviour
 
     public virtual void Setup()
     {
-        UIManager.Instance.AddBackUI(this);
-        UIManager.Instance.PushBackAction(this, BackKey);
+        //UIManager.Instance.AddBackUI(this);
+        //UIManager.Instance.PushBackAction(this, BackKey);
     }
 
     public virtual void BackKey()

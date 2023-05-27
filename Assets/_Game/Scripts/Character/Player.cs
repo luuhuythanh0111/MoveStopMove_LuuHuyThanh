@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] private FloatingJoystick floatingJoystick;
-    [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private Transform orientation;
-    [SerializeField] private LevelManager levelManager;
+
+    [SerializeField] internal new Rigidbody rigidbody;
+    [SerializeField] internal FloatingJoystick floatingJoystick;
 
     internal GameObject weapon;
 
@@ -25,13 +25,12 @@ public class Player : Character
         this.currentState.ChangeState(new PlayerIdleState());
         radiusRing.localScale = new Vector3(radius-0.4f, radius-0.4f, 1);
 
-        coin = levelManager.coin;
-        currentPLayerWeaponIndex = levelManager.currentWeaponIndex;
-        currentPLayerHeadIndex = levelManager.currentHeadSkinIndex;
-        currentPlayerPantIndex = levelManager.currentPantSkinIndex;
-        currentPlayerArmoIndex = levelManager.currentArmoSkinIndex;
+        coin = LevelManager.Instance.coin;
+        currentPLayerWeaponIndex = PlayerPrefs.GetInt("currentWeaponIndex");
+        currentPLayerHeadIndex = PlayerPrefs.GetInt("currentHeadSkinIndex");
+        currentPlayerPantIndex = PlayerPrefs.GetInt("currentPantSkinIndex");
+        currentPlayerArmoIndex = PlayerPrefs.GetInt("currentArmoSkinIndex");
 
-        levelManager.SetCoinText();
         defaultMoveSpeed = moveSpeed;
 
         /// change skin at start time
@@ -73,7 +72,7 @@ public class Player : Character
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rigidbody.velocity = moveSpeed * Time.deltaTime * moveDirection;
-
+        //transform.position = playerBody.position;
         ChangeDirection();
     }
 

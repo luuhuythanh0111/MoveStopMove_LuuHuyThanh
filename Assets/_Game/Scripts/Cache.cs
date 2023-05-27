@@ -33,5 +33,17 @@ public class Cache
 
         return characters[collider];
     }
+
+    private static Dictionary<Collider, Weapon> weapons = new Dictionary<Collider, Weapon>();
+
+    public static Weapon GetWeapon(Collider collider)
+    {
+        if (!weapons.ContainsKey(collider))
+        {
+            weapons.Add(collider, collider.GetComponent<Weapon>());
+        }
+
+        return weapons[collider];
+    }
 }
 

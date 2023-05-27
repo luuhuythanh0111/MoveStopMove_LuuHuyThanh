@@ -12,6 +12,9 @@ public class Character : GameUnit
     [Header("ArmoSkin")]
     [SerializeField] protected ChangeSkin armoSkinSpawn;
 
+    [Header("Color")]
+    [SerializeField] protected SkinnedMeshRenderer skinnedMeshRenderer;
+
     [Header("Other")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected Transform throwPosition;
@@ -35,9 +38,12 @@ public class Character : GameUnit
     internal int currentPLayerHeadIndex;
     internal int currentPlayerPantIndex;
     internal int currentPlayerArmoIndex;
+    internal int indexInScaleSO;
 
     internal float defaultRadius;
     internal float defaultMoveSpeed;
+
+    internal string characterName;
 
     private Transform m_Transform;
     private Collider[] rangeCheck;
@@ -76,7 +82,6 @@ public class Character : GameUnit
         StartCoroutine(FOVRoutine(0.2f));
     }
 
-    // Update is called once per frame
     virtual protected void Update()
     {
         this.UpdateCharacterState();
@@ -84,10 +89,6 @@ public class Character : GameUnit
 
     virtual protected void UpdateCharacterState()
     {
-        //if (wayPointMarker != null && GameManager.Instance.IsState(GameState.Gameplay))
-        //{
-        //    wayPointMarker.gameObject.SetActive(true);
-        //}
         currentState.UpdateState(this);
     }
     #endregion
@@ -199,20 +200,32 @@ public class Character : GameUnit
         targetEnemy = null;
         defaultRadius = radius;
         characterLevel = 0;
+        indexInScaleSO = 0;
 
         wayPointMarker = SimplePool.Spawn<WayPointMarker>(waypointPrefab);
         wayPointMarker.OnInit(this);
-        //wayPointMarker.gameObject.SetActive(false);
+
+
+        skinnedMeshRenderer.material.color = new Color(Random.Range(0, 255) / 255f,
+                                         Random.Range(0, 255) / 255f,
+                                         Random.Range(0, 255) / 255f,
+                                         1.0f);
+
+        this.wayPointMarker.arrowImageMaterial.color = skinnedMeshRenderer.material.color;
+        this.wayPointMarker.image.color = skinnedMeshRenderer.material.color;
+        this.wayPointMarker.nameText.text = LevelManager.Instance.nameScriptableObject.GetName();
+        characterName = this.wayPointMarker.nameText.text;
+        this.wayPointMarker.nameText.color = skinnedMeshRenderer.material.color;
 
         if (this is Player)
         {
             currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
             currentPLayerHeadIndex = LevelManager.Instance.currentHeadSkinIndex;
             currentPlayerPantIndex = LevelManager.Instance.currentPantSkinIndex;
+
+            this.wayPointMarker.target = this.playerBody;
             return;
         }
-
-        
 
         /// Spawn Position , Need to update new Way to spawn
         /////
@@ -239,15 +252,13 @@ public class Character : GameUnit
         throw new System.NotImplementedException();
     }
 
-    ///=======================================================================\
-
     #region Change Skin
 
-    public void WeaponClick()
+    public void WeaponClick(int index)
     {
-        if (LevelManager.Instance.currentWeaponIndex != Menu.Instance.currentWeaponIndex)
+        if (LevelManager.Instance.currentWeaponIndex != index)
         {
-            holdWeapon.ChangeWeapon(Menu.Instance.currentWeaponIndex, this);
+            holdWeapon.ChangeWeapon(index, this);
         }
     }
 
@@ -287,6 +298,13 @@ public class Character : GameUnit
     internal void ChangeMoveSpeed(float moveSpeedBuff)
     {
         moveSpeed += moveSpeedBuff;
+    }
+
+    internal void ChangeScale(int scale)
+    {
+        transform.localScale = transform.localScale + transform.localScale * scale / 100f;
+        radius += radius * scale / 100f;
+        defaultRadius = radius;
     }
 
     #endregion
