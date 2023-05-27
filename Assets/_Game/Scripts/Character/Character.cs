@@ -99,7 +99,6 @@ public class Character : GameUnit
     {
         if (currentAnimName == animName)
             return;
-        //Debug.Log(currentAnimName + " -> " + animName);
         anim.ResetTrigger(animName);
         currentAnimName = animName;
         anim.SetTrigger(currentAnimName);

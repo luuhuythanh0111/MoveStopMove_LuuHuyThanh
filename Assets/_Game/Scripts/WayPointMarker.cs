@@ -52,7 +52,7 @@ public class WayPointMarker : GameUnit
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         pos.z = 0;
-        image.transform.position = pos;
+        image.transform.position = Vector3.Lerp(image.transform.position, pos, 0.4f);
         
 
         if(rectTransform.anchoredPosition.x < 0)
