@@ -162,7 +162,6 @@ public class NameScriptableObject : ScriptableObject
 
     public string GetName()
     {
-        Debug.Log(names.Count);
         int index = Random.Range(0, names.Count);
         int counting = 0;
         while (usedName[index] == true)

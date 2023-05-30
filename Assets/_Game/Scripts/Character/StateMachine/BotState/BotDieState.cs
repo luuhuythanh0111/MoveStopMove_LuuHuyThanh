@@ -6,6 +6,9 @@ public class BotDieState : IState<Character>
 {
     public float timer;
     public float dieTime;
+    
+    private bool haveDespawn;
+
     public void OnEnter(Character t)
     {
         t.IsAttack = false;
@@ -14,10 +17,12 @@ public class BotDieState : IState<Character>
         timer = 0;
         t.ChangeAnim("Dead");
         t.playerBody.gameObject.layer = 0;
+        haveDespawn = false;
+        EffectManager.Instance.PlayBloodParticle(t.transform);
         
+
         if (t.wayPointMarker != null)
         {
-            //Debug.Log(1);
             t.wayPointMarker.OnDespawn();
         }
 
@@ -25,15 +30,20 @@ public class BotDieState : IState<Character>
         {
             ((Player)t).rigidbody.velocity = Vector3.zero;
         }
+
     }
 
     public void OnExecute(Character t)
     {
+        if (haveDespawn)
+            return;
         timer += Time.deltaTime;
 
         if(timer >= dieTime)
         {
+            haveDespawn = true;
             t.OnDespawn();
+            EffectManager.Instance.PlayDeathParticle(t.transform);
         }
         t.isDead = true;
     }

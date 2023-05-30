@@ -36,6 +36,32 @@ public class Bot : Character
         base.Attack();
     }
 
+    internal void SpawnPosition()
+    {
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * agent.radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = hit.position;
+        }
+        
+        transform.position = finalPosition;
+    }
+
+    public override void OnInit()
+    {
+        base.OnInit();
+        currentState.ChangeState(new BotIdleState());
+        moveSpeed = agent.speed;
+        defaultMoveSpeed = moveSpeed;
+    }
+    public override void OnDespawn()
+    {
+        base.OnDespawn();
+        this.MoveStop();
+    }
 
     internal void SeekTarget(ref Transform targetEnemy)
     {

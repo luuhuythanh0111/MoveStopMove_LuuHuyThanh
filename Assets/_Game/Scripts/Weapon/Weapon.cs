@@ -19,6 +19,7 @@ public class Weapon : GameUnit
     virtual protected void Update()
     {
         rigidbody.velocity = speed * moveDirection.normalized;
+        transform.Rotate(0, 360 * Time.deltaTime, 0);
 
         timer += Time.deltaTime;
 
@@ -35,36 +36,13 @@ public class Weapon : GameUnit
         {
             PlayerBody enemy = Cache.GetPlayerBody(other);
 
-
-            if (enemy.character.characterLevel == 0)
-            {
-                character.characterLevel += 1;
-                LevelManager.Instance.coin += 1;
-            }
-            else
-            {
-                character.characterLevel += GetLog2(enemy.character.characterLevel);
-                //Debug.Log(GetLog2(enemy.character.characterLevel));
-                LevelManager.Instance.coin += GetLog2(enemy.character.characterLevel);
-            }
-            character.wayPointMarker.SetLevelText(character.characterLevel);
-            if (character.characterLevel > LevelManager.Instance.scaleScriptableObject.GetScale(character.indexInScaleSO).Level)
-            {
-                character.ChangeScale(LevelManager.Instance.scaleScriptableObject.GetScale(character.indexInScaleSO).ScaleSize);
-                character.indexInScaleSO++;
-
-            }
+            character.AddLevel(enemy);
         }
     }
 
-    private int GetLog2(int x)
+    public void SetLifeTime(float radius)
     {
-        int ans = 0;
-        while( (1 << ans) <= x)
-        {
-            ans++;
-        }
-        return ans--;
+        lifeTime = radius / speed;
     }
 
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)

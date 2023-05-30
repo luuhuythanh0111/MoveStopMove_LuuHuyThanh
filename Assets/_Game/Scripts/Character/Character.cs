@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Character : GameUnit
 {
@@ -178,8 +179,8 @@ public class Character : GameUnit
     internal void ThrowWeapon()
     {
         Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
-               
-        weapon.LifeTime = radius / weapon.Speed;
+
+        weapon.SetLifeTime(radius);
         if (throwPosition == null || targetEnemy == null)
             return;
         weapon.OnInit(throwPosition.position, 
@@ -201,9 +202,10 @@ public class Character : GameUnit
         characterLevel = 0;
         indexInScaleSO = 0;
 
+        StartCoroutine(FOVRoutine(0.2f));
+        ///waypoint
         wayPointMarker = SimplePool.Spawn<WayPointMarker>(waypointPrefab);
         wayPointMarker.OnInit(this);
-
 
         skinnedMeshRenderer.material.color = new Color(Random.Range(0, 255) / 255f,
                                          Random.Range(0, 255) / 255f,
@@ -215,7 +217,9 @@ public class Character : GameUnit
         this.wayPointMarker.nameText.text = LevelManager.Instance.nameScriptableObject.GetName();
         characterName = this.wayPointMarker.nameText.text;
         this.wayPointMarker.nameText.color = skinnedMeshRenderer.material.color;
+        ///
 
+        playerBody.gameObject.layer = LayerMask.NameToLayer("Character");
         if (this is Player)
         {
             currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
@@ -244,6 +248,9 @@ public class Character : GameUnit
     public override void OnDespawn()
     {
         SimplePool.Despawn(this);
+        LevelManager.Instance.aliveBot--;
+        LevelManager.Instance.aliveCharacter--;
+        LevelManager.Instance.SetAliveText();
     }
 
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
@@ -307,4 +314,35 @@ public class Character : GameUnit
     }
 
     #endregion
+
+
+    public void AddLevel(PlayerBody enemy)
+    {
+        if (enemy.character.characterLevel == 0)
+        {
+            characterLevel += 1;
+            LevelManager.Instance.coin += 1;
+        }
+        else
+        {
+            characterLevel += GetLog2(enemy.character.characterLevel);
+            LevelManager.Instance.coin += GetLog2(enemy.character.characterLevel);
+        }
+        wayPointMarker.SetLevelText(characterLevel);
+        if (characterLevel > LevelManager.Instance.scaleScriptableObject.GetScale(indexInScaleSO).Level)
+        {
+            ChangeScale(LevelManager.Instance.scaleScriptableObject.GetScale(indexInScaleSO).ScaleSize);
+            indexInScaleSO++;
+        }
+    }
+
+    private int GetLog2(int x)
+    {
+        int ans = 0;
+        while ((1 << ans) <= x)
+        {
+            ans++;
+        }
+        return ans--;
+    }
 }

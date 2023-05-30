@@ -7,16 +7,14 @@ public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private Bot botPrefab;
 
-
-    //[SerializeField] private WayPointMarker waypointPrefab;
     [SerializeField] internal TextMeshProUGUI coinText;
+    [SerializeField] internal TextMeshProUGUI aliveText;
     [SerializeField] internal SkinScriptableObject skinScriptableObject;
     [SerializeField] internal SkinIconScriptableObject skinIconScriptableObject;
     [SerializeField] internal NameScriptableObject nameScriptableObject;
     [SerializeField] internal ScaleScriptableObject scaleScriptableObject;
     [SerializeField] internal Character player;
     
-
     internal int defaultWeaponIndex;
     internal int defaultHeadIndex;
     internal int defaultPantIndex;
@@ -37,9 +35,11 @@ public class LevelManager : Singleton<LevelManager>
     internal int currentArmoSkinIndex;
     internal int[] openedArmoSkinIndex = new int[2];
 
-    /// <summary>
-    /// Awake to take out the data of player
-    /// </summary>
+    internal int aliveBot;
+    internal int aliveCharacter = 16;
+
+    const int maxAliveBot = 15;
+
     private void Start()
     {
         coin = PlayerPrefs.GetInt("coin");
@@ -74,10 +74,12 @@ public class LevelManager : Singleton<LevelManager>
 
         ///SpawnBot
 
-        for (int i = 0; i < 10; i++)
+        aliveBot = 0;
+        for (int i = 0; i < 15; i++)
         {
             Bot bot = SimplePool.Spawn<Bot>(botPrefab);
             bot.OnInit();
+            aliveBot++;
         }
 
         /// Hack
@@ -108,6 +110,22 @@ public class LevelManager : Singleton<LevelManager>
         //    openedArmoSkinIndex[i] = 0;
         //}
 
+    }
+
+    private void Update()
+    {
+        if(aliveBot < 15 && aliveCharacter - aliveBot > 1)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+            bot.OnInit();
+            aliveBot++;
+            SetAliveText();
+        }
+    }
+
+    public void SetAliveText()
+    {
+        aliveText.SetText("Alive: " + aliveCharacter.ToString());
     }
 
     public void SetCoinText()

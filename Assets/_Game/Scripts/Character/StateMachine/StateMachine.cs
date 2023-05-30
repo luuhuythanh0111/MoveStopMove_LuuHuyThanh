@@ -19,7 +19,14 @@ public class StateMachine<T> where T : Character
             }
             return;
         }
-        //Debug.Log(currentState + " -> "   + state);
+
+        //if (GameManager.Instance.IsState(GameState.Pause))
+        //{
+            
+        //    return;
+        //}
+
+
         if (currentState != null)
         {
             currentState.OnExit(typeClass);
