@@ -16,7 +16,7 @@ public class PlayerBody : MonoBehaviour
             if (character is Player)
             {
                 Lose lose = UIManager.Instance.OpenUI<Lose>();
-                lose.nameText.text = weapon.character.characterName;
+                lose.nameText.text = weapon.owner.characterName;
                 UIManager.Instance.CloseUI<GamePlay>();
             }
         }

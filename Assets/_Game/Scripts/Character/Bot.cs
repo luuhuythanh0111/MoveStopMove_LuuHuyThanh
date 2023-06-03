@@ -36,29 +36,30 @@ public class Bot : Character
         base.Attack();
     }
 
-    internal void SpawnPosition()
+    internal void SpawnPosition(float distanceRadius)
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * agent.radius;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere.normalized * distanceRadius;
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        if (NavMesh.SamplePosition(randomDirection, out hit, distanceRadius, 1))
         {
             finalPosition = hit.position;
         }
-        
         transform.position = finalPosition;
     }
 
     public override void OnInit()
     {
         base.OnInit();
+        SpawnPosition(20f);
         currentState.ChangeState(new BotIdleState());
         moveSpeed = agent.speed;
         defaultMoveSpeed = moveSpeed;
     }
     public override void OnDespawn()
     {
+        LevelManager.Instance.BotDespawn(this);
         base.OnDespawn();
         this.MoveStop();
     }

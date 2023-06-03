@@ -100,6 +100,7 @@ public class Player : Character
         if (GameManager.Instance.IsState(GameState.Gameplay) == false)
             return;
 
+        //TODO: sua lai k dung getcomponent //tinh dong goi
         if (targetEnemy != null)
         {
             targetEnemy.GetComponent<PlayerBody>().targetRing.SetActive(false);

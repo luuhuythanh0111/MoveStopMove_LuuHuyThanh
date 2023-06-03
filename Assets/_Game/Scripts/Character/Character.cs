@@ -46,6 +46,8 @@ public class Character : GameUnit
 
     internal string characterName;
 
+    internal bool isSpecialThrow;
+
     private Transform m_Transform;
     private Collider[] rangeCheck;
     
@@ -100,7 +102,7 @@ public class Character : GameUnit
     {
         if (currentAnimName == animName)
             return;
-        anim.ResetTrigger(animName);
+        anim.ResetTrigger(currentAnimName);
         currentAnimName = animName;
         anim.SetTrigger(currentAnimName);
     }
@@ -168,7 +170,6 @@ public class Character : GameUnit
 
         LookAtTarget();
         Debug.DrawLine(playerBody.position, targetEnemy.position, Color.blue, 2f);
-
     }
 
     internal void LookAtTarget()
@@ -180,12 +181,15 @@ public class Character : GameUnit
     {
         Weapon weapon = SimplePool.Spawn<Weapon>(weaponPrefab);
 
-        weapon.SetLifeTime(radius);
         if (throwPosition == null || targetEnemy == null)
             return;
         weapon.OnInit(throwPosition.position, 
             targetEnemy.position);
-        weapon.character = this;
+        weapon.SetLifeTime(radius);
+        weapon.SetOwner(this);
+        weapon.SetScale(Transform.localScale);
+        weapon.SetSpecialThrow(isSpecialThrow);
+        isSpecialThrow = false;
     }
 
     #endregion
@@ -195,6 +199,7 @@ public class Character : GameUnit
     {
         isMoving = false;
         isAttack = false;
+        isSpecialThrow = false;
         currentAnimName = "Idle";
         ChangeAnim("Idle");
         targetEnemy = null;
@@ -207,11 +212,10 @@ public class Character : GameUnit
         wayPointMarker = SimplePool.Spawn<WayPointMarker>(waypointPrefab);
         wayPointMarker.OnInit(this);
 
-        skinnedMeshRenderer.material.color = new Color(Random.Range(0, 255) / 255f,
-                                         Random.Range(0, 255) / 255f,
-                                         Random.Range(0, 255) / 255f,
-                                         1.0f);
+        skinnedMeshRenderer.material = LevelManager.Instance.colorScriptableObject.GetMaterial();
 
+        //wayPointMarker.SetData()
+        //TODO: tinh dong goi
         this.wayPointMarker.arrowImageMaterial.color = skinnedMeshRenderer.material.color;
         this.wayPointMarker.image.color = skinnedMeshRenderer.material.color;
         this.wayPointMarker.nameText.text = LevelManager.Instance.nameScriptableObject.GetName();
@@ -219,6 +223,7 @@ public class Character : GameUnit
         this.wayPointMarker.nameText.color = skinnedMeshRenderer.material.color;
         ///
 
+        //TODO: tranh viec dung if -> uu tien viec ke thua
         playerBody.gameObject.layer = LayerMask.NameToLayer("Character");
         if (this is Player)
         {
@@ -239,6 +244,10 @@ public class Character : GameUnit
             );
         transform.position = spawnPosition;
     }
+    public virtual void SaveData()
+    {
+
+    }
 
     public override void OnInit(Character t)
     {
@@ -248,6 +257,7 @@ public class Character : GameUnit
     public override void OnDespawn()
     {
         SimplePool.Despawn(this);
+        //TODO: khong choc truc tiep vao bien
         LevelManager.Instance.aliveBot--;
         LevelManager.Instance.aliveCharacter--;
         LevelManager.Instance.SetAliveText();
@@ -306,7 +316,7 @@ public class Character : GameUnit
         moveSpeed += moveSpeedBuff;
     }
 
-    internal void ChangeScale(int scale)
+    internal void ChangeScale(int scale)    
     {
         transform.localScale = transform.localScale + transform.localScale * scale / 100f;
         radius += radius * scale / 100f;
@@ -315,6 +325,13 @@ public class Character : GameUnit
 
     #endregion
 
+    #region Trigger
+    public void TriggerWithGift()
+    {
+        isSpecialThrow = true;
+    }
+
+    #endregion
 
     public void AddLevel(PlayerBody enemy)
     {
@@ -344,5 +361,9 @@ public class Character : GameUnit
             ans++;
         }
         return ans--;
+    }
+
+    internal virtual void OnHit()
+    {
     }
 }

@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private Bot botPrefab;
+    [SerializeField] private Gift giftPrefab;
 
     [SerializeField] internal TextMeshProUGUI coinText;
     [SerializeField] internal TextMeshProUGUI aliveText;
@@ -13,6 +15,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] internal SkinIconScriptableObject skinIconScriptableObject;
     [SerializeField] internal NameScriptableObject nameScriptableObject;
     [SerializeField] internal ScaleScriptableObject scaleScriptableObject;
+    [SerializeField] internal ColorScriptableObject colorScriptableObject;
     [SerializeField] internal Character player;
     
     internal int defaultWeaponIndex;
@@ -36,7 +39,9 @@ public class LevelManager : Singleton<LevelManager>
     internal int[] openedArmoSkinIndex = new int[2];
 
     internal int aliveBot;
-    internal int aliveCharacter = 16;
+    internal int aliveCharacter = 30;
+
+    internal int numberOfGift;
 
     const int maxAliveBot = 15;
 
@@ -44,6 +49,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         coin = PlayerPrefs.GetInt("coin");
         maxCharacterLevel = 0;
+        numberOfGift = 0;
         currentWeaponIndex = PlayerPrefs.GetInt("currentWeaponIndex");
         currentHeadSkinIndex = PlayerPrefs.GetInt("currentHeadSkinIndex");
         currentPantSkinIndex = PlayerPrefs.GetInt("currentPantSkinIndex");
@@ -74,13 +80,13 @@ public class LevelManager : Singleton<LevelManager>
 
         ///SpawnBot
 
-        aliveBot = 0;
-        for (int i = 0; i < 15; i++)
-        {
-            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-            bot.OnInit();
-            aliveBot++;
-        }
+        //aliveBot = 0;
+        //for (int i = 0; i < 15; i++)
+        //{
+        //    Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+        //    bot.OnInit();
+        //    aliveBot++;
+        //}
 
         /// Hack
         coin = 15000;
@@ -114,13 +120,14 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Update()
     {
-        if(aliveBot < 15 && aliveCharacter - aliveBot > 1)
-        {
-            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-            bot.OnInit();
-            aliveBot++;
-            SetAliveText();
-        }
+        //if(aliveBot < 15 && aliveCharacter - aliveBot > 1)
+        //{
+        //    Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+        //    bot.OnInit();
+        //    aliveBot++;
+        //    SetAliveText();
+        //}
+        CheckGameState();
     }
 
     public void SetAliveText()
@@ -160,6 +167,59 @@ public class LevelManager : Singleton<LevelManager>
         {
             PlayerPrefs.SetInt("openedArmoSkinIndex" + i.ToString(), openedArmoSkinIndex[i]);
         }
+    }
+
+
+    #region BotController
+
+    List<Bot> listBots = new List<Bot>();
+
+    public void BotSpawn(Vector3 point)
+    {
+        Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+        listBots.Add(bot);
+        bot.OnInit();
+    }
+
+    public void BotDespawn(Bot bot)
+    {
+        listBots.Remove(bot);
+
+        CheckGameState();
+    }
+
+    public void BotInit()
+    {
+
+    }
+
+    #endregion
+
+    private void CheckGameState()
+    {
+        //if (aliveBot < 15 && aliveCharacter - aliveBot > 1)
+        //    BotSpawn(Vector3.zero);
+
+        if (numberOfGift < 1)
+        {
+            GiftSpawn();
+        }
+    }
+
+    List<Gift> listGifts = new List<Gift>();
+
+    public void GiftSpawn()
+    {
+        Gift gift = SimplePool.Spawn<Gift>(giftPrefab);
+        listGifts.Add(gift);
+        numberOfGift++;
+        gift.OnInit();
+    }
+
+    public void GiftDespawn(Gift gift)
+    {
+        listGifts.Remove(gift);
+        numberOfGift--;
     }
 
 }
