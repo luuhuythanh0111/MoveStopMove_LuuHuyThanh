@@ -7,9 +7,19 @@ public class PlayerBody : MonoBehaviour
     public Character character;
     public GameObject targetRing;
 
+    public void ActiveTargetRing()
+    {
+        targetRing.SetActive(true);
+    }
+
+    public void DeactiveTargetRing()
+    {
+        targetRing.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Weapon"))
+        if (other.CompareTag(Cache.GetString("Weapon")))
         {
             character.currentState.ChangeState(new BotDieState());
             Weapon weapon = Cache.GetWeapon(other);

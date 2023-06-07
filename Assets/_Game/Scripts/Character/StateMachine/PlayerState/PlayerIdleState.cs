@@ -9,8 +9,7 @@ public class PlayerIdleState : IState<Character>
     {
         t.IsAttack = false;
         t.IsMoving = false;
-        t.ChangeAnim("Idle");
-
+        t.ChangeAnim(Cache.GetString("Idle"));
     }
 
     public void OnExecute(Character t)

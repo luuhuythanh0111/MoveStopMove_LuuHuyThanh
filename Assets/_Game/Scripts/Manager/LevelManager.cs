@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -16,7 +17,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] internal NameScriptableObject nameScriptableObject;
     [SerializeField] internal ScaleScriptableObject scaleScriptableObject;
     [SerializeField] internal ColorScriptableObject colorScriptableObject;
-    [SerializeField] internal Character player;
+    [SerializeField] internal Player player;
     
     internal int defaultWeaponIndex;
     internal int defaultHeadIndex;
@@ -78,15 +79,7 @@ public class LevelManager : Singleton<LevelManager>
         defaultHeadIndex = skinScriptableObject.headSkin.Length;
         defaultPantIndex = skinScriptableObject.pantSkin.Length;
 
-        ///SpawnBot
-
-        //aliveBot = 0;
-        //for (int i = 0; i < 15; i++)
-        //{
-        //    Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-        //    bot.OnInit();
-        //    aliveBot++;
-        //}
+        SpawnBot();
 
         /// Hack
         coin = 15000;
@@ -118,20 +111,18 @@ public class LevelManager : Singleton<LevelManager>
 
     }
 
-    private void Update()
+    public void SpawnBot()
     {
-        //if(aliveBot < 15 && aliveCharacter - aliveBot > 1)
-        //{
-        //    Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-        //    bot.OnInit();
-        //    aliveBot++;
-        //    SetAliveText();
-        //}
-        CheckGameState();
+        for (int i = 0; i < 15; i++)
+        {
+            BotSpawn();
+        }
     }
 
     public void SetAliveText()
     {
+        if (aliveText == null)
+            return;
         aliveText.SetText("Alive: " + aliveCharacter.ToString());
     }
 
@@ -174,31 +165,42 @@ public class LevelManager : Singleton<LevelManager>
 
     List<Bot> listBots = new List<Bot>();
 
-    public void BotSpawn(Vector3 point)
+    public void BotSpawn()
     {
         Bot bot = SimplePool.Spawn<Bot>(botPrefab);
-        listBots.Add(bot);
         bot.OnInit();
     }
 
     public void BotDespawn(Bot bot)
     {
         listBots.Remove(bot);
-
+        aliveBot--;
+        aliveCharacter--;
+        SetAliveText();
         CheckGameState();
     }
 
-    public void BotInit()
+    public void BotInit(Bot bot)
     {
-
+        aliveBot++;
+        SetAliveText();
+        listBots.Add(bot);
     }
 
     #endregion
 
     private void CheckGameState()
     {
-        //if (aliveBot < 15 && aliveCharacter - aliveBot > 1)
-        //    BotSpawn(Vector3.zero);
+        if (aliveBot < 15 && aliveCharacter - aliveBot > 1)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(botPrefab);
+            bot.OnInit();
+        }
+
+        if(aliveCharacter == 1)
+        {
+
+        }
 
         if (numberOfGift < 1)
         {
@@ -220,6 +222,22 @@ public class LevelManager : Singleton<LevelManager>
     {
         listGifts.Remove(gift);
         numberOfGift--;
+        CheckGameState();
     }
 
+    public void Reset()
+    {
+        for(int i=0; i<listBots.Count; i++)
+        {
+            listBots[i].OnDespawn();
+        }
+
+        listBots.Clear();
+
+        GameManager.Instance.ChangeState(GameState.MainMenu);
+        aliveCharacter = 30;
+        SpawnBot();
+        player.OnInit();
+        player.Revive();
+    }
 }

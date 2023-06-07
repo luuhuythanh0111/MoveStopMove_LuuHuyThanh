@@ -100,8 +100,8 @@ public class Character : GameUnit
 
     public void ChangeAnim(string animName)
     {
-        if (currentAnimName == animName)
-            return;
+        //if (currentAnimName == animName)
+        //    return;
         anim.ResetTrigger(currentAnimName);
         currentAnimName = animName;
         anim.SetTrigger(currentAnimName);
@@ -169,7 +169,8 @@ public class Character : GameUnit
             return;
 
         LookAtTarget();
-        Debug.DrawLine(playerBody.position, targetEnemy.position, Color.blue, 2f);
+        if(targetEnemy != null)
+            Debug.DrawLine(playerBody.position, targetEnemy.position, Color.blue, 2f);
     }
 
     internal void LookAtTarget()
@@ -199,6 +200,7 @@ public class Character : GameUnit
     {
         isMoving = false;
         isAttack = false;
+        isDead = false;
         isSpecialThrow = false;
         currentAnimName = "Idle";
         ChangeAnim("Idle");
@@ -221,28 +223,14 @@ public class Character : GameUnit
         this.wayPointMarker.nameText.text = LevelManager.Instance.nameScriptableObject.GetName();
         characterName = this.wayPointMarker.nameText.text;
         this.wayPointMarker.nameText.color = skinnedMeshRenderer.material.color;
-        ///
+        ////
 
-        //TODO: tranh viec dung if -> uu tien viec ke thua
         playerBody.gameObject.layer = LayerMask.NameToLayer("Character");
-        if (this is Player)
-        {
-            currentPlayerArmoIndex = LevelManager.Instance.currentArmoSkinIndex;
-            currentPLayerHeadIndex = LevelManager.Instance.currentHeadSkinIndex;
-            currentPlayerPantIndex = LevelManager.Instance.currentPantSkinIndex;
+    }
 
-            this.wayPointMarker.target = this.playerBody;
-            return;
-        }
-
-        /// Spawn Position , Need to update new Way to spawn
-        /////
-        ///
-        characterLevel = Random.Range(0, LevelManager.Instance.maxCharacterLevel + 2);
-        Vector3 spawnPosition = new Vector3(Random.Range(-25f, 25f),
-                        0, Random.Range(-25f, 25f)
-            );
-        transform.position = spawnPosition;
+    public void ChangeName(string name)
+    {
+        this.wayPointMarker.nameText.text = characterName;
     }
     public virtual void SaveData()
     {
@@ -257,10 +245,6 @@ public class Character : GameUnit
     public override void OnDespawn()
     {
         SimplePool.Despawn(this);
-        //TODO: khong choc truc tiep vao bien
-        LevelManager.Instance.aliveBot--;
-        LevelManager.Instance.aliveCharacter--;
-        LevelManager.Instance.SetAliveText();
     }
 
     public override void OnInit(Vector3 spawnPosition, Vector3 targetEnemy)
@@ -316,11 +300,14 @@ public class Character : GameUnit
         moveSpeed += moveSpeedBuff;
     }
 
-    internal void ChangeScale(int scale)    
+    internal virtual void ChangeScale(int scale)    
     {
         transform.localScale = transform.localScale + transform.localScale * scale / 100f;
         radius += radius * scale / 100f;
         defaultRadius = radius;
+
+        SoundManager.Instance.PlayEffectSound((int)AudioClipEnum.ScaleUp);
+        EffectManager.Instance.PlayScaleUpParticle(playerBody);
     }
 
     #endregion
@@ -345,7 +332,12 @@ public class Character : GameUnit
             characterLevel += GetLog2(enemy.character.characterLevel);
             LevelManager.Instance.coin += GetLog2(enemy.character.characterLevel);
         }
-        wayPointMarker.SetLevelText(characterLevel);
+
+        if(wayPointMarker != null)
+        {
+            wayPointMarker.SetLevelText(characterLevel);
+        }
+        
         if (characterLevel > LevelManager.Instance.scaleScriptableObject.GetScale(indexInScaleSO).Level)
         {
             ChangeScale(LevelManager.Instance.scaleScriptableObject.GetScale(indexInScaleSO).ScaleSize);
@@ -363,7 +355,15 @@ public class Character : GameUnit
         return ans--;
     }
 
+    internal void Revive()
+    {
+        isDead = false;
+        currentState.ChangeState(new PlayerIdleState());
+        ChangeAnim(Cache.GetString("Idle"));
+    }
+
     internal virtual void OnHit()
     {
+        SoundManager.Instance.PlayEffectSound((int)AudioClipEnum.GetHit);
     }
 }

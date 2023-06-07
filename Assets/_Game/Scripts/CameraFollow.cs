@@ -16,10 +16,17 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     public float smoothSpeed = 0.01f;
-    
+
+    private Vector3 defaultOffset;
     private Vector3 targetPosition;
 
-    //Start is called before the first frame update
+    private Quaternion defaultQuaternion;
+
+    private void Awake()
+    {
+        defaultOffset = new Vector3(0, 3.5f, -10);
+        defaultQuaternion = new Quaternion(-20/360f, 0, 0, 0);
+    }
     private void LateUpdate()
     {
         if (GameManager.Instance.IsState(GameState.MainMenu))
@@ -51,5 +58,16 @@ public class CameraFollow : MonoBehaviour
     {
         transform.position = target.position + skinShopPosition;
         transform.rotation = skinShopRotation;
+    }
+
+    public void ChangeOffset()
+    {
+        offset += offset * 5 / 100f;
+    }
+
+    public void ResetOffset()
+    {
+        transform.position = target.position + defaultOffset;
+        transform.rotation = Quaternion.Euler(new Vector3(20,0,0));
     }
 }

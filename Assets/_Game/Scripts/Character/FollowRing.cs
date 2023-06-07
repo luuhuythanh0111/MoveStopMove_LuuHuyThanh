@@ -44,4 +44,9 @@ public class FollowRing : MonoBehaviour
             obstacle.ChangeMaterialToDefault();
         }
     }
+
+    public void ChangeOffset(int scale)
+    {
+        offset += offset * scale / 100f;
+    }
 }

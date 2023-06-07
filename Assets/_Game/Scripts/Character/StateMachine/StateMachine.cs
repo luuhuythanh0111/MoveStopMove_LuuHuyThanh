@@ -20,11 +20,11 @@ public class StateMachine<T> where T : Character
             return;
         }
 
-        //if (GameManager.Instance.IsState(GameState.Pause))
-        //{
-            
-        //    return;
-        //}
+        if (GameManager.Instance.IsState(GameState.Pause))
+        {
+
+            return;
+        }
 
 
         if (currentState != null)

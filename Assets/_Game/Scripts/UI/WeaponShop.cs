@@ -130,8 +130,6 @@ public class WeaponShop : UICanvas
 
     public void XClick()
     {
-        weapons[currentWeaponIndex].SetActive(false);
-
         Close();
         UIManager.Instance.OpenUI<MainMenu>();
     }

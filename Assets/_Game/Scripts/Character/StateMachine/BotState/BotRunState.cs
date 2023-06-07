@@ -14,14 +14,15 @@ public class BotRunState : IState<Character>
         t.IsMoving = true;
         CountDownTime = Random.Range(4f, 6f);
         ((Bot)t).SeekTarget(ref targetEnemy);
-        ((Bot)t).SetDestination(targetEnemy.position);
+        if(targetEnemy!= null )
+            ((Bot)t).SetDestination(targetEnemy.position);
         t.ChangeAnim("Run");
     }
 
     public void OnExecute(Character t)
     {
         CountDownTime -= Time.deltaTime;
-
+        
         if (t.HaveTarget || CountDownTime <= 0f)
         {
             ((Bot)t).MoveStop();

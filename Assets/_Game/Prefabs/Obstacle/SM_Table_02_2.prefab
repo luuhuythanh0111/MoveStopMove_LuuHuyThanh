@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4382626086218931602}
   - component: {fileID: 86866414508876491}
   - component: {fileID: 1758013753618350472}
+  - component: {fileID: 7533334604686380558}
   m_Layer: 0
   m_Name: SM_Table_02_2
   m_TagString: Obstacle
@@ -113,3 +114,19 @@ MonoBehaviour:
   meshRenderer: {fileID: 4382626086218931602}
   DefaultMaterial: {fileID: 2100000, guid: 5f570979a0f424642babb955de896826, type: 2}
   TransparentMaterial: {fileID: 2100000, guid: 7be29810adbb6654fbb0e15706cfbe7f, type: 2}
+--- !u!114 &7533334604686380558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869579408641834055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 1
+  m_AffectedAgents: ffffffff

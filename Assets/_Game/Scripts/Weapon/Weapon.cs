@@ -54,7 +54,8 @@ public class Weapon : GameUnit
             //Character c = other.GetComponent<Character>();
             //TODO:
             //c.OnHit();
-
+            enemy.character.OnDespawn();
+            OnDespawn();
             owner.AddLevel(enemy);
         }
     }

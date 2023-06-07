@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scales:
   - Level: 2
-    ScaleSize: 20
+    ScaleSize: 10
   - Level: 4
-    ScaleSize: 20
+    ScaleSize: 10
   - Level: 8
-    ScaleSize: 20
+    ScaleSize: 10
   - Level: 16
-    ScaleSize: 20
+    ScaleSize: 10
   - Level: 32
-    ScaleSize: 20
+    ScaleSize: 10

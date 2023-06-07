@@ -6,9 +6,13 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private Transform orientation;
+    [SerializeField] private FollowRing followRing;
+    [SerializeField] private CameraFollow cameraFollow;
 
     [SerializeField] internal new Rigidbody rigidbody;
     [SerializeField] internal FloatingJoystick floatingJoystick;
+
+    
 
     internal GameObject weapon;
 
@@ -46,6 +50,12 @@ public class Player : Character
         GetMouseInput();
     }
 
+    public override void OnInit()
+    {
+        base.OnInit();
+        this.wayPointMarker.target = this.playerBody;
+    }
+
     ///=======================================================================\
     /// Input and Moving
     ///=======================================================================\ <summary>
@@ -54,6 +64,7 @@ public class Player : Character
     {
         if (this.isDead)
             return;
+
         if (Input.GetMouseButton(0))
         {
             currentState.ChangeState(new PlayerRunState());
@@ -72,7 +83,7 @@ public class Player : Character
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rigidbody.velocity = moveSpeed * Time.deltaTime * moveDirection;
-        //transform.position = playerBody.position;
+
         ChangeDirection();
     }
 
@@ -100,24 +111,40 @@ public class Player : Character
         if (GameManager.Instance.IsState(GameState.Gameplay) == false)
             return;
 
-        //TODO: sua lai k dung getcomponent //tinh dong goi
         if (targetEnemy != null)
         {
-            targetEnemy.GetComponent<PlayerBody>().targetRing.SetActive(false);
+            PlayerBody playerBody = Cache.GetPlayerBody(targetEnemy);
+            playerBody.DeactiveTargetRing();
         }
 
         base.FieldOfViewCheck();
 
         if (targetEnemy != null)
-            targetEnemy.GetComponent<PlayerBody>().targetRing.SetActive(true);
+        {
+            PlayerBody playerBody = Cache.GetPlayerBody(targetEnemy);
+            playerBody.ActiveTargetRing();
+        }
+    }
+
+    internal override void ChangeScale(int scale)
+    {
+        base.ChangeScale(scale);
+        followRing.ChangeOffset(scale);
+        cameraFollow.ChangeOffset();
+    }
+
+    public override void OnDespawn()
+    {
+
     }
 
     ///=======================================================================\
-    
 
-    //internal void SetName()
-    //{
 
-    //}
+    internal void SetName(string name)
+    {
+        characterName = name;
+        this.ChangeName(name);
+    }
 
 }

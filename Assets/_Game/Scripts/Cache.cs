@@ -40,16 +40,28 @@ public class Cache
     //------------------------------------------------------------------------------------------------------------
 
 
-    private static Dictionary<Collider, PlayerBody> characters = new Dictionary<Collider, PlayerBody>();
+    private static Dictionary<Collider, PlayerBody> charactersCollider = new Dictionary<Collider, PlayerBody>();
 
     public static PlayerBody GetPlayerBody(Collider collider)
     {
-        if (!characters.ContainsKey(collider))
+        if (!charactersCollider.ContainsKey(collider))
         {
-            characters.Add(collider, collider.GetComponent<PlayerBody>());
+            charactersCollider.Add(collider, collider.GetComponent<PlayerBody>());
         }
 
-        return characters[collider];
+        return charactersCollider[collider];
+    }
+
+    private static Dictionary<Transform, PlayerBody> charactersTransform = new Dictionary<Transform, PlayerBody>();
+
+    public static PlayerBody GetPlayerBody(Transform transform)
+    {
+        if (!charactersTransform.ContainsKey(transform))
+        {
+            charactersTransform.Add(transform, transform.GetComponent<PlayerBody>());
+        }
+
+        return charactersTransform[transform];
     }
 
     private static Dictionary<Collider, Weapon> weapons = new Dictionary<Collider, Weapon>();

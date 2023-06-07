@@ -52,10 +52,23 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
-        SpawnPosition(20f);
+        LevelManager.Instance.BotInit(this);
+        //SpawnPosition(20f);
+        characterLevel = UnityEngine.Random.Range(0, LevelManager.Instance.maxCharacterLevel + 2);
+        Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-25f, 25f),
+                        0, UnityEngine.Random.Range(-25f, 25f)
+            );
+        transform.position = spawnPosition;
+
+        if (wayPointMarker != null)
+        {
+            wayPointMarker.SetLevelText(characterLevel);
+        }
+
         currentState.ChangeState(new BotIdleState());
         moveSpeed = agent.speed;
         defaultMoveSpeed = moveSpeed;
+        this.wayPointMarker.target = this.playerBody;
     }
     public override void OnDespawn()
     {
